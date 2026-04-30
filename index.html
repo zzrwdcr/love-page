@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>致我最在意的人</title>
+    
+    <!-- 微信分享优化 -->
+    <meta property="og:title" content="💌 致我最在意的人">
+    <meta property="og:description" content="有些话攒了很久，想亲口对你说——给我一分钟，读完这封信。">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=400&fit=crop">
+    
+    <!-- iOS 优化 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#29b6f6">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+            /* 整张《星夜》铺满；上层弱渐变压住一点对比，突出中间卡片 */
+            background-color: #0c1c38;
+            background-image:
+                linear-gradient(
+                    168deg,
+                    rgba(8, 18, 40, 0.42) 0%,
+                    rgba(16, 40, 64, 0.28) 40%,
+                    rgba(12, 32, 48, 0.48) 100%
+                ),
+                url('assets/starry-night-reference.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ===== 信封主页：卡通轻快蓝色风 ===== */
+        .envelope-page {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            padding: 0 8px;
+        }
+
+        /* 轻快卡通星屑高光 */
+        .envelope-anime-glitter {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            border-radius: 22px;
+            opacity: 0.45;
+            background-image:
+                radial-gradient(circle at 78% 8%, rgba(255, 255, 255, 0.65) 0, transparent 18%),
+                radial-gradient(circle at 92% 14%, rgba(189, 235, 255, 0.55) 0, transparent 1.1%),
+                radial-gradient(circle at 22% 18%, rgba(165, 245, 255, 0.5) 0, transparent 1.2%),
+                radial-gradient(circle at 68% 6%, rgba(255, 240, 180, 0.35) 0, transparent 0.9%);
+        }
+
+        .envelope-card {
+            position: relative;
+            border-radius: 28px;
+            padding: 3px;
+            background: linear-gradient(
+                145deg,
+                #81d4fa,
+                #4fc3f7,
+                #29b6f6,
+                #03a9f4
+            );
+            box-shadow:
+                0 18px 42px rgba(0, 110, 180, 0.25),
+                0 4px 12px rgba(255, 255, 255, 0.4) inset;
+        }
+
+        .envelope-card-inner {
+            position: relative;
+            border-radius: 25px;
+            padding: clamp(24px, 6vw, 34px) clamp(20px, 5vw, 30px) clamp(28px, 6vw, 36px);
+            background: linear-gradient(
+                168deg,
+                rgba(224, 248, 255, 0.98) 0%,
+                rgba(179, 235, 255, 0.92) 38%,
+                rgba(165, 225, 255, 0.88) 100%
+            );
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            box-shadow:
+                inset 0 2px 0 rgba(255, 255, 255, 0.75),
+                inset 0 -3px 8px rgba(0, 110, 180, 0.08);
+        }
+
+        .envelope-card-inner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.75), transparent 42%),
+                radial-gradient(circle at 18% 78%, rgba(165, 245, 255, 0.45), transparent 48%);
+            pointer-events: none;
+        }
+
+        .envelope-card-inner::after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 38% 32%, #fff, #81d4fa 48%, transparent 72%);
+            box-shadow: 0 0 18px rgba(129, 212, 250, 0.6);
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        .envelope-kicker {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin: 0 auto 16px;
+            max-width: 300px;
+            font-size: 11.5px;
+            letter-spacing: 0.42em;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #0277bd, #0288d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #0277bd;
+            font-weight: 700;
+            line-height: 1.4;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed rgba(2, 119, 189, 0.35);
+        }
+
+        .envelope-visual-wrap {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto 10px;
+            padding-bottom: 48px;
+        }
+
+        .envelope-float {
+            perspective: 1200px;
+            transform-origin: center center;
+        }
+
+        .envelope-sheet {
+            position: absolute;
+            left: 50%;
+            bottom: 36%;
+            transform: translateX(-50%);
+            width: 82%;
+            height: 52%;
+            background: linear-gradient(175deg, #f0faff 4%, #e0f4ff 52%, #b2e6ff 100%);
+            border-radius: 12px 12px 6px 6px;
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            box-shadow:
+                0 -8px 18px rgba(0, 90, 150, 0.1),
+                inset 0 3px 0 rgba(255, 255, 255, 0.85),
+                0 0 0 1px rgba(2, 136, 209, 0.15);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .envelope-sheet::after {
+            content: '';
+            position: absolute;
+            left: 14%;
+            right: 14%;
+            top: 22px;
+            height: 9px;
+            background: repeating-linear-gradient(
+                88deg,
+                transparent,
+                transparent 13px,
+                rgba(2, 136, 209, 0.18) 13px,
+                rgba(2, 136, 209, 0.18) 19px
+            );
+            opacity: 0.75;
+        }
+
+        .envelope-chrome {
+            position: absolute;
+            inset: 0;
+            border-radius: 0 0 26px 26px;
+            box-shadow:
+                inset 0 0 0 2px rgba(255, 255, 255, 0.55),
+                0 0 0 1px rgba(2, 119, 189, 0.25);
+            pointer-events: none;
+            z-index: 13;
+            opacity: 0.7;
+        }
+
+        .envelope {
+            width: clamp(272px, 78vw, 316px);
+            height: clamp(186px, 52vw, 218px);
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 2;
+        }
+
+        .envelope:hover {
+            transform: scale(1.06) rotateY(8deg);
+        }
+
+        .envelope:active {
+            transform: scale(0.97);
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(162deg, #81d4fa 0%, #4fc3f7 48%, #29b6f6 100%);
+            border-radius: 0 0 24px 24px;
+            box-shadow:
+                0 18px 38px rgba(0, 90, 160, 0.22),
+                inset 0 4px 0 rgba(255, 255, 255, 0.65),
+                inset 0 -18px 32px rgba(2, 119, 189, 0.15);
+        }
+
+        .envelope-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 54%;
+            background: linear-gradient(172deg, #b2ebf2 0%, #81d4fa 55%, #4fc3f7 100%);
+            clip-path: polygon(0 100%, 50% 4%, 100% 100%);
+            border-radius: 0 0 24px 24px;
+            box-shadow: inset 0 -6px 14px rgba(2, 119, 189, 0.2);
+        }
+
+        .envelope-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 52%;
+            height: 100%;
+            background: linear-gradient(136deg, #b2ebf2 0%, #81d4fa 52%, #4fc3f7 100%);
+            clip-path: polygon(0 0, 0 100%, 96% 52%);
+        }
+
+        .envelope-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 52%;
+            height: 100%;
+            background: linear-gradient(216deg, #b2ebf2 0%, #81d4fa 52%, #4fc3f7 100%);
+            clip-path: polygon(4% 0, 100% 0, 100% 100%);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 54%;
+            background: linear-gradient(195deg, #e0f7fa 4%, #b2ebf2 38%, #81d4fa 100%);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top center;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10;
+            box-shadow:
+                0 -5px 14px rgba(0, 90, 160, 0.18),
+                inset 0 12px 18px rgba(255, 255, 255, 0.75),
+                inset 0 -2px 0 rgba(2, 136, 209, 0.25);
+        }
+
+        .envelope.flap-open .envelope-flap {
+            transform: rotateX(182deg);
+        }
+
+        .seal {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            z-index: 14;
+            background: linear-gradient(135deg, #fff176, #ffee58);
+            border: 3px solid #29b6f6;
+            box-shadow:
+                0 8px 20px rgba(2, 119, 189, 0.25),
+                inset 0 3px 0 rgba(255, 255, 255, 0.85),
+                inset 0 -6px 12px rgba(255, 193, 7, 0.25);
+            color: #0277bd;
+        }
+
+        .envelope-shadow {
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(286px, 84vw);
+            height: 34px;
+            background: radial-gradient(ellipse, rgba(2, 80, 140, 0.28) 0%, transparent 68%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .envelope-hint {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 300px;
+            margin: 24px auto 0;
+            padding: 20px 8px 0;
+            text-align: center;
+            border-top: 2px dashed rgba(2, 136, 209, 0.35);
+        }
+
+        .envelope-hint h1 {
+            color: #01579b;
+            font-size: clamp(23px, 6vw, 29px);
+            font-weight: 700;
+            text-shadow: 0 3px 12px rgba(2, 119, 189, 0.25);
+            margin: 0 0 12px;
+            letter-spacing: 0.12em;
+            line-height: 1.25;
+            background: linear-gradient(88deg, #0277bd, #03a9f4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .envelope-hint .envelope-desc {
+            color: #01579b;
+            font-size: clamp(13.5px, 3.6vw, 15.5px);
+            letter-spacing: 0.02em;
+            line-height: 1.75;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 94%;
+            font-weight: 400;
+        }
+
+        .tap-hint {
+            margin: 22px auto 0;
+            width: fit-content;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 11px 24px;
+            background: rgba(224, 248, 255, 0.85);
+            border: 2px solid #29b6f6;
+            border-radius: 9999px;
+            color: #01579b;
+            font-size: 13.5px;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(2, 136, 209, 0.22);
+        }
+
+        .envelope-corner {
+            position: absolute;
+            z-index: 3;
+            top: 20px;
+            left: 20px;
+            width: 24px;
+            height: 24px;
+            border-left: 3px solid #29b6f6;
+            border-top: 3px solid #29b6f6;
+            border-radius: 6px 0 0 0;
+            pointer-events: none;
+        }
+
+        .envelope-corner.bl {
+            top: auto;
+            left: auto;
+            bottom: 20px;
+            right: 20px;
+            border: none;
+            border-right: 3px solid #29b6f6;
+            border-bottom: 3px solid #29b6f6;
+            border-radius: 0 0 6px 0;
+        }
+
+        /* ===== 信纸页面 ===== */
+        .letter {
+            display: none;
+            max-width: 380px;
+            width: 100%;
+            perspective: 1000px;
+        }
+
+        .letter.page-enter {
+            animation: letterUnfold 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+        }
+
+        .letter-inner {
+            background: linear-gradient(
+                178deg,
+                rgba(248, 250, 252, 0.97) 0%,
+                rgba(224, 242, 254, 0.32) 100%
+            );
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow:
+                0 24px 72px rgba(8, 47, 73, 0.22),
+                0 10px 28px rgba(14, 116, 144, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.75);
+            animation: letterUnfold 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            transform-origin: top center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes letterUnfold {
+            0% { 
+                opacity: 0; 
+                transform: rotateX(-30deg) scale(0.8) translateY(50px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% { 
+                opacity: 1; 
+                transform: rotateX(0) scale(1) translateY(0);
+            }
+        }
+
+        /* 信纸装饰 */
+        .letter-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e0f2fe, #7dd3fc, #38bdf8, #0ea5e9, #bae6fd);
+            background-size: 280% 100%;
+            animation: gradientFlow 8s ease infinite !important;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .letter-header::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 2px;
+            margin: 16px auto 0;
+            background: linear-gradient(90deg, transparent, #7dd3fc, transparent);
+        }
+
+        .letter-header h2 {
+            color: #0369a1;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .letter-subtitle {
+            margin-top: 10px;
+            font-size: 13px;
+            color: rgba(71, 85, 105, 0.9);
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .question-hint {
+            font-size: 13px;
+            color: #0e7490;
+            line-height: 1.65;
+            margin-bottom: 20px;
+            font-weight: 400;
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .letter-content {
+            color: #1e293b;
+            font-size: 16px;
+            line-height: 2.2;
+            text-align: justify;
+            margin-bottom: 35px;
+            font-weight: 400;
+            max-height: min(48vh, 360px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 6px;
+            margin-right: -6px;
+        }
+
+        .letter-content p {
+            margin-bottom: 18px;
+            text-indent: 2em;
+            opacity: 0;
+            animation: fadeInLine 0.8s ease forwards;
+        }
+
+        @keyframes fadeInLine {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: linear-gradient(to bottom, #38bdf8, #0369a1);
+            margin-left: 3px;
+            animation: cursorBlink 0.8s infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* 问题区域 - 玻璃拟态 */
+        .question {
+            text-align: center;
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(224, 242, 254, 0.75) 0%, rgba(125, 211, 252, 0.38) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(125, 211, 252, 0.45);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(10px, 10px) rotate(180deg); }
+        }
+
+        .question-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .question h3 {
+            color: #0c4a6e;
+            font-size: 20px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            font-size: 16px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            color: #fff;
+            box-shadow: 0 8px 26px rgba(3, 105, 161, 0.38);
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 36px rgba(14, 116, 144, 0.45);
+        }
+
+        .btn-yes:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(226, 232, 240, 0.95) 100%);
+            color: #64748b;
+            box-shadow: 0 4px 16px rgba(8, 47, 73, 0.08);
+        }
+
+        .btn-no:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(8, 47, 73, 0.12);
+        }
+
+        /* ===== 成功页面 ===== */
+        .success {
+            display: none;
+            text-align: center;
+            animation: successAppear 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: 
+                linear-gradient(135deg, #fce7f3 0%, #fdf2f8 35%, #fae8f0 70%, #fce7f3 100%),
+                radial-gradient(circle at 30% 20%, rgba(251, 146, 178, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 70% 65%, rgba(249, 168, 212, 0.22) 0%, transparent 55%),
+                radial-gradient(circle at 20% 80%, rgba(253, 224, 239, 0.18) 0%, transparent 45%);
+            overflow: hidden;
+        }
+
+        /* 增加氛围感的背景装饰层 */
+        .success::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(251, 113, 133, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 35%, rgba(244, 63, 94, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 40% 75%, rgba(253, 164, 175, 0.15) 0%, transparent 50%);
+            animation: softPulse 18s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes softPulse {
+            0%, 100% { opacity: 0.65; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes successAppear {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .success-card {
+            background: linear-gradient(
+                152deg,
+                rgba(255, 240, 245, 0.98) 0%,
+                rgba(253, 224, 239, 0.96) 35%,
+                rgba(249, 210, 230, 0.94) 70%,
+                rgba(255, 182, 193, 0.88) 100%
+            );
+            border: 4px solid rgba(255, 182, 193, 0.75);
+            border-radius: 32px;
+            padding: 58px 48px;
+            box-shadow:
+                0 40px 95px -10px rgba(236, 72, 153, 0.45),
+                0 20px 45px rgba(249, 168, 212, 0.3),
+                inset 0 8px 32px rgba(255, 255, 255, 0.95),
+                inset 0 -6px 25px rgba(251, 146, 178, 0.25);
+            position: relative;
+            overflow: hidden;
+            max-width: 440px;
+            margin: 30px auto;
+            z-index: 5;
+            backdrop-filter: blur(12px);
+        }
+
+        .success-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 25% 20%, rgba(251, 146, 178, 0.55) 0%, transparent 50%),
+                radial-gradient(circle at 75% 65%, rgba(249, 168, 212, 0.45) 0%, transparent 55%),
+                radial-gradient(circle at 40% 80%, rgba(253, 224, 239, 0.6) 0%, transparent 48%);
+            pointer-events: none;
+            z-index: 1;
+            animation: heartGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes heartGlow {
+            0%, 100% { opacity: 0.75; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); }
+        }
+
+        .success-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .heart-ring {
+            width: 138px;
+            height: 138px;
+            margin: 0 auto 32px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .heart-ring::before {
+            content: '💗';
+            font-size: 78px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: heartbeat 1.1s ease-in-out infinite;
+            filter: drop-shadow(0 0 18px #ff8fb0);
+            z-index: 2;
+        }
+
+        .heart-ring::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 138px;
+            height: 138px;
+            border: 6px solid rgba(251, 146, 178, 0.65);
+            border-radius: 50%;
+            animation: ringPulse 1.8s ease-out infinite;
+            box-shadow: 0 0 35px rgba(251, 146, 178, 0.7);
+            z-index: 1;
+        }
+
+        @keyframes ringPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            25% { transform: translate(-50%, -50%) scale(1.15); }
+            50% { transform: translate(-50%, -50%) scale(1); }
+            75% { transform: translate(-50%, -50%) scale(1.15); }
+        }
+
+        .success h2 {
+            color: #831c4a;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1.5px;
+            text-shadow: 
+                0 6px 20px rgba(251, 146, 178, 0.5),
+                0 2px 8px rgba(255, 255, 255, 0.9);
+            background: linear-gradient(90deg, #9f1239, #e11d48, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .success p {
+            color: #5f2a45;
+            font-size: 16.5px;
+            line-height: 1.88;
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.85);
+            margin-bottom: 1.1em;
+        }
+
+        .success-subtitle {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed rgba(56, 189, 248, 0.35);
+        }
+
+        .success-subtitle p {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .confetti-icon {
+            font-size: 24px;
+            margin: 0 5px;
+            animation: confettiFloat 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .confetti-icon:nth-child(2) { animation-delay: 0.3s; }
+        .confetti-icon:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes confettiFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(10deg); }
+        }
+
+        /* 背景音乐悬浮按钮 */
+        .music-float {
+            position: fixed;
+            right: 14px;
+            bottom: calc(24px + env(safe-area-inset-bottom));
+            z-index: 2147483645;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: #164e63;
+            background: rgba(255, 255, 255, 0.48);
+            border: 1px solid rgba(125, 211, 252, 0.52);
+            box-shadow:
+                0 10px 30px rgba(8, 47, 73, 0.16),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .music-float:active {
+            transform: scale(0.96);
+        }
+
+        .music-float.is-playing {
+            color: #0c4a6e;
+            background: rgba(224, 242, 254, 0.72);
+            border-color: rgba(56, 189, 248, 0.55);
+            box-shadow:
+                0 12px 34px rgba(14, 116, 144, 0.22),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .music-float__ico {
+            font-size: 18px;
+            line-height: 1;
+            animation: none;
+        }
+
+        .music-float.is-playing .music-float__ico {
+            animation: musicNote 1.8s ease-in-out infinite;
+        }
+
+        @keyframes musicNote {
+            0%, 100% { transform: translateY(0) rotate(-6deg); }
+            50% { transform: translateY(-4px) rotate(6deg); }
+        }
+
+        .music-float__txt {
+            white-space: nowrap;
+        }
+
+        @media (max-width: 380px) {
+            .music-float__txt {
+                display: none;
+            }
+
+            .music-float {
+                padding: 12px;
+            }
+        }
+
+        /* 烟花画布 */
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* 微信提示 */
+        .wechat-tip {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* 页面切换动画 */
+        .page-enter {
+            animation: pageEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes pageEnter {
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 420px) {
+            .envelope-page {
+                max-width: 100%;
+                padding: 0 10px;
+            }
+
+            .envelope-card-inner {
+                padding: 20px 16px 24px;
+            }
+
+            .envelope-kicker {
+                font-size: 10px;
+                letter-spacing: 0.34em;
+            }
+
+            .envelope-hint {
+                max-width: min(286px, 100%);
+                margin-top: 22px;
+                padding-top: 16px;
+            }
+
+            .tap-hint {
+                padding: 10px 16px;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+            }
+            
+            .letter-inner {
+                padding: 25px 20px;
+            }
+            
+            .letter-header h2 {
+                font-size: 20px;
+            }
+            
+            .letter-subtitle {
+                font-size: 12px;
+                padding: 0 4px;
+            }
+
+            .question-hint {
+                font-size: 12px;
+                max-width: 100%;
+            }
+
+            .letter-content {
+                font-size: 14px;
+                max-height: min(42vh, 300px);
+            }
+            
+            .question h3 {
+                font-size: 17px;
+            }
+            
+            .btn {
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+            
+            .success-card {
+                padding: 35px 25px;
+            }
+            
+            .success h2 {
+                font-size: 26px;
+            }
+        }
+
+        /* 装饰元素 */
+        .sparkle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.98), rgba(125, 211, 252, 0.5));
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.45), 0 0 26px rgba(186, 230, 253, 0.35);
+            animation: sparkle 2.4s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* 按钮逃跑动画 */
+        @keyframes btnShake {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-10px) rotate(-5deg); }
+            50% { transform: translateX(10px) rotate(5deg); }
+            75% { transform: translateX(-5px) rotate(-3deg); }
+        }
+
+        @keyframes btnRun {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.8) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* 全页静态：禁用 CSS 动效并固定依赖动画的最终呈现 */
+        *, *::before, *::after {
+            animation: none !important;
+            animation-duration: 0s !important;
+            transition: none !important;
+        }
+
+        html {
+            scroll-behavior: auto !important;
+        }
+
+        .sparkle {
+            display: none !important;
+        }
+
+        .envelope-float {
+            transform: translateY(0) rotateX(4deg);
+        }
+
+        .envelope-hint,
+        .tap-hint {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+        .letter-inner {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+        /* 允许信纸展开动画（卡通轻快感） */
+        .letter-inner {
+            animation: letterUnfold 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+        }
+
+        /* 打字机效果支持 - 内容默认隐藏，JS逐字显示 */
+        .letter-content p {
+            opacity: 1 !important;
+            transform: none !important;
+            white-space: pre-wrap;
+        }
+
+        .page-enter {
+            animation: none !important;
+        }
+
+        .success {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+        .heart-ring::before {
+            animation: none !important;
+            transform: translate(-50%, -50%) scale(1) !important;
+        }
+
+        .heart-ring::after {
+            animation: none !important;
+            opacity: 0.55 !important;
+            transform: translate(-50%, -50%) scale(1.12) !important;
+        }
+
+        .confetti-icon {
+            animation: none !important;
+            transform: none !important;
+        }
+
+        .wechat-tip {
+            animation: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景音乐：将 bgm.mp3 与本页同级或放入 ./audio/bgm.mp3（MP3）；浏览器需在用户交互后播放 -->
+    <audio id="bgm" loop playsinline webkit-playsinline preload="metadata">
+        <source src="bgm.mp3" type="audio/mpeg">
+        <source src="audio/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <button type="button" id="musicToggle" class="music-float" aria-pressed="false" title="背景音乐：点击开启 / 暂停">
+        <span class="music-float__ico" aria-hidden="true">♪</span>
+        <span class="music-float__txt">背景音乐</span>
+    </button>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 信封页面 -->
+        <div class="envelope-page" id="envelopePage">
+            <div class="envelope-card">
+                <div class="envelope-card-inner">
+                    <span class="envelope-corner" aria-hidden="true"></span>
+                    <span class="envelope-corner bl" aria-hidden="true"></span>
+                    <div class="envelope-anime-glitter" aria-hidden="true"></div>
+                    <p class="envelope-kicker">致你 · PRIVATE</p>
+                    <div class="envelope-visual-wrap">
+                        <div class="envelope-float">
+                            <div class="envelope" id="envelope" onclick="openLetter()" role="button" tabindex="0">
+                                <div class="envelope-sheet" aria-hidden="true"></div>
+                                <div class="envelope-back"></div>
+                                <div class="envelope-bottom"></div>
+                                <div class="envelope-left"></div>
+                                <div class="envelope-right"></div>
+                                <div class="envelope-flap"></div>
+                                <div class="envelope-chrome" aria-hidden="true"></div>
+                                <div class="seal" aria-hidden="true">✨</div>
+                            </div>
+                        </div>
+                        <div class="envelope-shadow" aria-hidden="true"></div>
+                    </div>
+                    <div class="envelope-hint">
+                        <h1>致我最在意的人</h1>
+                        <p class="envelope-desc">我把许多话写进了这一页里：关于相遇、心动，还有未来想和你一起做的事。</p>
+                        <div class="tap-hint">
+                            <span aria-hidden="true">✨</span>
+                            <span>轻触信封 · 收下这份心意</span>
+                            <span aria-hidden="true">✨</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 表白内容页 -->
+        <div class="letter" id="letter">
+            <div class="letter-inner">
+                <div class="letter-header">
+                    <h2>写给唯一的你</h2>
+                    <p class="letter-subtitle">字句很长，情意更长——请慢慢地读。</p>
+                </div>
+                <div class="letter-content" id="letter-content">
+                    <!-- 文字将通过打字机效果显示 -->
+                </div>
+                
+                <div class="question">
+                    <div class="question-content">
+                        <h3 id="questionMain">愿不愿意，把时间分我一半？</h3>
+                        <p id="questionHint" class="question-hint">认真也好、玩笑也罢，我都想听你做决定。</p>
+                        <div class="buttons">
+                            <button class="btn btn-yes" onclick="sayYes()">愿意 ❤️</button>
+                            <button class="btn btn-no" id="noBtn" onclick="sayNo(event)" type="button">不愿意</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 成功页面 -->
+        <div class="success" id="success">
+            <div class="success-card">
+                <div class="success-content">
+                    <div class="heart-ring"></div>
+                    <h2>谢谢你，向我走来</h2>
+                    <p>
+                        <span class="confetti-icon">💗</span>
+                        我们隔着漫长季节，终于在同一场黄昏里重逢。
+                        <span class="confetti-icon">💗</span>
+                    </p>
+                    <p style="margin-top: 16px;">
+                        那些来不及说完的话、来不及拥抱的夜，
+                        从今天起，都可以慢慢补上。
+                    </p>
+                    <p style="margin-top: 12px;">
+                        以后很长，不必急着抵达，
+                        只要并肩，风也会变得柔软。
+                    </p>
+                    <div class="success-subtitle">
+                        <p>
+                            <span class="confetti-icon">🌸</span>
+                            把今天记下来吧——这是我们把“错过”改写成“重逢”的第一页。
+                            <span class="confetti-icon">🌸</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 微信提示 -->
+    <div class="wechat-tip" id="wechatTip">💝 觉得心动？点右上角把链接发给那个特别的人吧～</div>
+
+    <script>
+        // 表白文案（现代诗·恋人复合）
+        const letterText = `我们曾在同一场雨里并肩，
+后来，各自撑伞，走进不同的夜色。
+
+风把名字吹远，
+把沉默留在原地，
+像一封没写完的信，
+在抽屉里，亮了又暗。
+
+我以为时间会教人忘记，
+却只教会我——
+在每一个黄昏，
+把想念说得更轻。
+
+轻到像窗帘的一次起伏，
+像杯壁上慢慢退去的雾，
+像街角那盏灯，
+总在你会经过的方向亮着。
+
+如果重逢是一条很窄的路，
+那我愿意放慢脚步，
+把从前没来得及说的话，
+一行一行，重新写给你。
+
+不急着抵达，不急着许诺，
+只想在你转身的时候，
+刚好站在你看得见的地方。
+
+然后问你：
+要不要和我一起，
+把“后来”，
+改成“此刻”。`;
+
+        const questionVariants = [
+            { main: '如果你愿意，我们可不可以从“后来”走回“此刻”？', hint: '不必急着回答，我会在这里，慢慢等你。' },
+            { main: '要不要和我一起，把那些走散的黄昏重新点亮？', hint: '这一次，我会把脚步放得很轻。' },
+            { main: '如果我伸出手，你愿不愿意再握住一次？', hint: '我们可以慢慢来，不赶路。' },
+            { main: '你的心意，对我真的很重要。', hint: '不管答案是什么，我都尊重。' }
+        ];
+
+        const NO_BTN_ESCAPE_PHRASES = [
+            '手滑了对不对？再点一次好不好',
+            '我不信——你明明是笑着点的',
+            '再想想嘛，我就差你这一点点头了',
+            '别这么快拒绝我呀…我会超委屈的 🥺',
+            '难过三秒钟…然后继续等你改口',
+            '哼，我先躲一下，你可不许关页面',
+            '这个按钮今天叛逆期，不听「不愿意」',
+            '再点我？那我跑给你追（开玩笑的）',
+            '给你一次「撤回」机会，三、二……',
+            '拒绝可以，但理由要当面说给我听',
+            '你是不是在考验我追你的耐心 😤',
+            '最后一次机会——好吧我骗你的，机会管够',
+            '奶茶你选口味，我买单，你点「愿意」',
+            '我把「愿意」偷偷调大了字号，看见没？',
+            '你躲按钮，我躲害羞，咱俩扯平啦',
+            '万一…你只是害羞呢？',
+            '真的不再考虑一下下吗？就一下下',
+            '我的心已经坐好小板凳了，等你回头',
+            '要不这样：你先假装愿意，我再认真追',
+            '拒绝我也行，但今晚我会睡不着的',
+            '你点得越凶，我越觉得你可爱（别打我）',
+            '这不算数，网络延迟，我没听见',
+            '我去倒杯水，你趁我不注意改答案',
+            '友情提示：此按钮具有「越点越皮」属性',
+            '你是不是想让我多说几句好听的？',
+            '行，我记住了——下次换我更努力一点',
+            '不愿意三个字太冷了，换句软一点的？',
+            '我可以等，但你要允许我偶尔耍赖哦',
+            '先别做决定，回忆一下我刚刚写的信',
+            '你要是真的不愿意…我就继续追（理直气壮）',
+            '我会把这篇页面收藏，哪天你再点开看看',
+            '要么选愿意，要么选「明天再问问你」',
+            '我的Plan B是：再问一遍，再问一遍……',
+            '你每点一次，我就多喜欢你一点点',
+            '好好好我不逼你——但我按钮会走位',
+            '这不是结束，这是我的中场休息 ♪',
+            '听说犹豫的人心里其实已经有了答案',
+            '你要不要…把「不愿意」翻译成「等一下」',
+            '我准备了很长很长的以后，慢慢来也行',
+            '逃得了按钮，逃不过我想你（诶好土但真诚）',
+            '认真说：你不用完美，我们只要合适',
+            '那就先欠我一个「我愿意」，利息是拥抱',
+            '我去练吉他了——下次弹给你听换你点头',
+            '你要实在不想选…那就来抓我呀',
+            '此键已加入「傲娇模式」，请勿硬刚',
+            '我的喜欢很稳：你点几次我都在',
+            '最后一招：卖个惨…求求了嘛 🥹',
+            '开玩笑的啦——但我是真的很认真',
+            '要不先保存页面？让你慢慢想也不亏',
+            '你把「不愿意」留给我，我把温柔都留给你',
+            '点累了就歇会儿，「愿意」一直在那儿等你'
+        ];
+
+        function pickNoBtnPhrase(previous) {
+            const prev = (previous || '').trim();
+            const pool = NO_BTN_ESCAPE_PHRASES.filter((t) => t !== prev);
+            const list = pool.length ? pool : NO_BTN_ESCAPE_PHRASES;
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        // 刷新右下角音乐按钮与 aria 状态
+        function refreshBgmFloatingButtonState() {
+            const bgm = document.getElementById('bgm');
+            const btn = document.getElementById('musicToggle');
+            if (!bgm || !btn) return;
+            const on = !bgm.paused;
+            btn.classList.toggle('is-playing', on);
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            btn.title = on ? '点击暂停背景音乐' : '点击开启背景音乐';
+        }
+
+        /** 在用户点击信封等与手势同源的时刻尝试播放（满足自动播放策略） */
+        function tryPlayBgmFromUserGesture() {
+            const bgm = document.getElementById('bgm');
+            if (!bgm) return;
+            if (!bgm.paused) return;
+            const p = bgm.play();
+            if (p && typeof p.then === 'function') {
+                p.then(refreshBgmFloatingButtonState).catch(refreshBgmFloatingButtonState);
+            } else {
+                refreshBgmFloatingButtonState();
+            }
+        }
+
+        let isTyping = false;
+        let noBtnClickCount = 0;
+
+        // 打开信封
+        function openLetter() {
+            tryPlayBgmFromUserGesture();
+
+            const envelope = document.getElementById('envelope');
+            envelope.classList.add('flap-open');
+
+            document.getElementById('envelopePage').style.display = 'none';
+            document.getElementById('letter').style.display = 'block';
+            document.getElementById('letter').classList.add('page-enter');
+            typeWriter();
+        }
+
+        function typeWriter() {
+            if (isTyping) return;
+            isTyping = true;
+
+            const contentDiv = document.getElementById('letter-content');
+            contentDiv.innerHTML = '';
+
+            const paragraphs = letterText.split('\n').filter(line => line.trim() !== '');
+            let currentPara = 0;
+            let currentChar = 0;
+            let currentElement = null;
+
+            const typeNextChar = () => {
+                if (currentPara >= paragraphs.length) {
+                    isTyping = false;
+                    return;
+                }
+
+                // 创建新段落
+                if (!currentElement || currentChar === 0) {
+                    currentElement = document.createElement('p');
+                    contentDiv.appendChild(currentElement);
+                    currentChar = 0;
+                }
+
+                const text = paragraphs[currentPara];
+                currentElement.textContent = text.substring(0, currentChar + 1);
+                contentDiv.scrollTop = contentDiv.scrollHeight;
+
+                currentChar++;
+
+                // 完成当前段落
+                if (currentChar >= text.length) {
+                    currentPara++;
+                    currentChar = 0;
+                    currentElement = null;
+
+                    // 段落间稍作停顿
+                    setTimeout(typeNextChar, 320);
+                    return;
+                }
+
+                // 打字速度：基础30ms，标点稍慢，长句自然
+                let speed = 28;
+                const lastChar = text[currentChar - 1];
+                if (['，', '。', '！', '？', '、', '.', '!', '?', ','].includes(lastChar)) {
+                    speed = 65;
+                } else if (text.length > 45) {
+                    speed = 22; // 长段落略快
+                }
+
+                setTimeout(typeNextChar, speed);
+            };
+
+            // 开始打字
+            typeNextChar();
+        }
+
+        // 愿意按钮
+        function sayYes() {
+            document.getElementById('letter').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+
+            // 清理不愿意按钮，防止它在成功页继续跳动
+            const noBtn = document.getElementById('noBtn');
+            if (noBtn) {
+                noBtn.style.display = 'none';
+                noBtn.style.visibility = 'hidden';
+            }
+            noBtnClickCount = 0;
+
+            playSuccessSound();
+            // 启动粉色动态爱心和烟花特效（增加氛围）
+            setTimeout(() => {
+                if (typeof startFireworks === 'function') startFireworks();
+                if (typeof createFloatingHearts === 'function') {
+                    createFloatingHearts(35);     // 主波爱心
+                    setTimeout(() => createFloatingHearts(18), 900); // 第二波
+                }
+            }, 120);
+        }
+
+        // 不愿意按钮（逃跑效果）
+        // 注意：.letter 上有 perspective，会建立堆叠上下文，导致 fixed 子元素仍被卡在卡片内，
+        // 且 .letter-inner 有 overflow:hidden，会把「逃走」的按钮裁掉。
+        // 解决：初次逃跑时把按钮挂到 document.body，再用视口坐标移动。
+        function sayNo(ev) {
+            if (ev) {
+                ev.preventDefault();
+                ev.stopPropagation();
+            }
+            // 如果已进入成功页，则忽略不愿意按钮
+            if (document.getElementById('success').style.display === 'block') {
+                return;
+            }
+            const btn = document.getElementById('noBtn');
+            if (!btn || btn.style.display === 'none') return;
+
+            noBtnClickCount++;
+            const prevLabel = btn.textContent;
+            btn.textContent = pickNoBtnPhrase(prevLabel);
+            const qIdx = (noBtnClickCount - 1) % questionVariants.length;
+            const qMain = document.getElementById('questionMain');
+            const qHint = document.getElementById('questionHint');
+            if (qMain && qHint) {
+                qMain.textContent = questionVariants[qIdx].main;
+                qHint.textContent = questionVariants[qIdx].hint;
+            }
+            btn.style.background = 'linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%)';
+            btn.style.color = '#0c4a6e';
+
+            const screenW = window.innerWidth || document.documentElement.clientWidth;
+            const screenH = window.innerHeight || document.documentElement.clientHeight || 600;
+
+            const padding = 16;
+
+            if (!btn.dataset.escapedBody) {
+                btn.dataset.escapedBody = '1';
+                const rect = btn.getBoundingClientRect();
+                document.body.appendChild(btn);
+                btn.style.position = 'fixed';
+                btn.style.left = Math.round(rect.left) + 'px';
+                btn.style.top = Math.round(rect.top) + 'px';
+                btn.style.margin = '0';
+                btn.style.zIndex = '2147483646';
+                btn.style.touchAction = 'manipulation';
+                btn.style.webkitTapHighlightColor = 'transparent';
+                btn.style.whiteSpace = 'normal';
+                btn.style.maxWidth = 'min(300px, calc(100vw - 32px))';
+                btn.style.lineHeight = '1.4';
+                btn.style.textAlign = 'center';
+                btn.style.padding = '12px 16px';
+                void btn.offsetHeight;
+            }
+
+            const r = btn.getBoundingClientRect();
+            const bw = Math.max(1, r.width || btn.offsetWidth || 100);
+            const bh = Math.max(1, r.height || btn.offsetHeight || 44);
+
+            const minX = 0;
+            const minY = 0;
+            const maxX = Math.max(0, screenW - bw);
+            const maxY = Math.max(0, screenH - bh);
+
+            const curLeft = Number.parseFloat(btn.style.left);
+            const curTop = Number.parseFloat(btn.style.top);
+
+            let newX;
+            let newY;
+            let guard = 0;
+            const wantFar = noBtnClickCount > 1;
+            const minDx = Math.min(96, Math.max(48, screenW * 0.22));
+            const minDy = Math.min(72, Math.max(40, screenH * 0.18));
+
+            const rangeX = Math.max(0, maxX - minX - padding * 2);
+            const rangeY = Math.max(0, maxY - minY - padding * 2);
+            const baseX = minX + Math.min(padding, maxX * 0.05);
+            const baseY = minY + Math.min(padding, maxY * 0.05);
+
+            do {
+                newX = baseX + Math.random() * rangeX;
+                newY = baseY + Math.random() * rangeY;
+                guard++;
+                if (!wantFar || guard > 60) break;
+            } while (
+                Number.isFinite(curLeft) &&
+                Number.isFinite(curTop) &&
+                Math.abs(newX - curLeft) < minDx &&
+                Math.abs(newY - curTop) < minDy
+            );
+
+            if (!Number.isFinite(newX) || !Number.isFinite(newY)) {
+                newX = Math.max(0, (screenW - bw) / 2);
+                newY = Math.max(0, (screenH - bh) / 2);
+            }
+
+            newX = Math.max(minX, Math.min(newX, maxX));
+            newY = Math.max(minY, Math.min(newY, maxY));
+
+            btn.style.left = Math.round(newX) + 'px';
+            btn.style.top = Math.round(newY) + 'px';
+        }
+
+        // 成功音效
+        function playSuccessSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                const playNote = (freq, start, duration, type = 'sine') => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    osc.frequency.value = freq;
+                    osc.type = type;
+                    
+                    gain.gain.setValueAtTime(0, audioContext.currentTime + start);
+                    gain.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + start + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + start + duration);
+                    
+                    osc.start(audioContext.currentTime + start);
+                    osc.stop(audioContext.currentTime + start + duration);
+                };
+                
+                // 播放庆祝旋律
+                playNote(523.25, 0, 0.4);     // C5
+                playNote(659.25, 0.15, 0.4);  // E5
+                playNote(783.99, 0.3, 0.4);   // G5
+                playNote(1046.50, 0.45, 0.8); // C6
+            } catch (e) {
+                console.log('Audio not supported');
+            }
+        }
+
+        // 检测微信环境
+        function isWechat() {
+            return /MicroMessenger/i.test(navigator.userAgent);
+        }
+
+        // 背景音乐（需用户手势触发播放；首开信封会自动尝试）
+        function initMusicControls() {
+            const bgm = document.getElementById('bgm');
+            const btn = document.getElementById('musicToggle');
+            if (!bgm || !btn) return;
+
+            bgm.volume = 0.32;
+
+            bgm.addEventListener('pause', refreshBgmFloatingButtonState);
+            bgm.addEventListener('play', refreshBgmFloatingButtonState);
+            bgm.addEventListener('error', function () {
+                btn.title = '未找到音频：请将 bgm.mp3 与本页同级，或置于 audio/bgm.mp3';
+                btn.classList.remove('is-playing');
+            });
+
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (bgm.paused) {
+                    const p = bgm.play();
+                    if (p && typeof p.then === 'function') {
+                        p.then(refreshBgmFloatingButtonState).catch(refreshBgmFloatingButtonState);
+                    }
+                } else {
+                    bgm.pause();
+                    refreshBgmFloatingButtonState();
+                }
+            });
+
+            refreshBgmFloatingButtonState();
+        }
+
+        // 动态爱心漂浮（粉色浪漫，填满留白）
+        function createFloatingHearts(count = 22) {
+            const colors = ['#ff8fb0', '#f9a8d4', '#fda4af', '#fbcfe8', '#fce7f3'];
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.textContent = ['💗', '💖', '💕', '❤️', '💝'][Math.floor(Math.random()*5)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.bottom = '-50px';
+                    heart.style.fontSize = (18 + Math.random() * 26) + 'px';
+                    heart.style.opacity = 0.75 + Math.random() * 0.25;
+                    heart.style.zIndex = '150';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = `floatHeart ${4 + Math.random() * 5}s cubic-bezier(0.25, 0.1, 0.25, 1) forwards`;
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 8000);
+                }, i * 28);
+            }
+        }
+
+        // 烟花效果（使用现有canvas或创建）
+        function startFireworks() {
+            let canvas = document.getElementById('fireworks');
+            if (!canvas) {
+                canvas = document.createElement('canvas');
+                canvas.id = 'fireworks';
+                canvas.className = 'fireworks';
+                document.body.appendChild(canvas);
+            }
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            class Particle {
+                constructor(x, y, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.color = color;
+                    this.size = Math.random() * 5 + 2;
+                    this.speedX = Math.random() * 6 - 3;
+                    this.speedY = Math.random() * 6 - 5;
+                    this.gravity = 0.08;
+                    this.life = 65;
+                    this.alpha = 1;
+                }
+                update() {
+                    this.speedY += this.gravity;
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life--;
+                    this.alpha = this.life / 65;
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            function explode(x, y) {
+                const colors = ['#ff8fb0', '#fda4af', '#f9a8d4', '#fce7f3', '#ff69b4', '#ffb6c1'];
+                for (let i = 0; i < 38; i++) {
+                    particles.push(new Particle(x, y, colors[Math.floor(Math.random()*colors.length)]));
+                }
+            }
+
+            let frame = 0;
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (Math.random() < 0.12) {
+                    explode(Math.random() * canvas.width, Math.random() * canvas.height * 0.6);
+                }
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].life <= 0) particles.splice(i, 1);
+                }
+                frame++;
+                // 无限持续烟花
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // 页面加载完成后初始化
+        window.onload = function() {
+            initMusicControls();
+
+            const envEl = document.getElementById('envelope');
+            if (envEl) {
+                envEl.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openLetter();
+                    }
+                });
+            }
+            
+            if (isWechat()) {
+                setTimeout(() => {
+                    document.getElementById('wechatTip').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('wechatTip').style.display = 'none';
+                    }, 4000);
+                }, 3000);
+            }
+        };
+
+
+    </script>
+</body>
+</html>
