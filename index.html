@@ -2478,6 +2478,20 @@
 
             // 立即开始自动播放
             scheduleNextAutoPlay();
+            
+            // 立即尝试播放背景音乐（配合用户点击）
+            const bgm = document.getElementById('bgm');
+            if (bgm) {
+                bgm.volume = 0.4;
+                bgm.play().catch(() => {
+                    // 如果自动播放失败，等待用户点击
+                    const playOnClick = () => {
+                        bgm.play().catch(() => {});
+                        intro.removeEventListener('click', playOnClick);
+                    };
+                    intro.addEventListener('click', playOnClick);
+                });
+            }
         }
 
         // 滑动切换音效
