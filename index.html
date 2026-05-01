@@ -160,6 +160,20 @@
             max-width: 80%;
         }
 
+        .loading-hint {
+            position: absolute;
+            bottom: 80px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.1em;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
         /* 图片页 - 全屏 */
         .image-slide {
             background: linear-gradient(180deg, #05070c 0%, #0a0e14 50%, #1e293b 100%);
@@ -1668,6 +1682,7 @@
                     <div class="cover-badge">TOP SECRET</div>
                     <h1 class="cover-title">复合者<br>联盟</h1>
                     <div class="cover-subtitle">RECONCILE UNION · 存档还在 · 默契没丢</div>
+                    <div class="loading-hint" id="loadingHint">加载中...</div>
                 </div>
             </div>
             
@@ -1676,7 +1691,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 01 · 回忆</div>
                     <div class="slide-image">
-                        <img src="assets/story_memory.png" alt="回忆相册" loading="eager">
+                        <img src="assets/story_memory.png" alt="回忆相册" loading="lazy">
                     </div>
                     <div class="slide-caption">「还记得吗？那些并肩的日子从未真正远去」</div>
                 </div>
@@ -1687,7 +1702,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 02 · 岔路</div>
                     <div class="slide-image">
-                        <img src="assets/story_choice.png" alt="人生选择" loading="eager">
+                        <img src="assets/story_choice.png" alt="人生选择" loading="lazy">
                     </div>
                     <div class="slide-caption">人生总有岔路口，但真正的朋友终会重逢</div>
                 </div>
@@ -1698,7 +1713,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 03 · 发现</div>
                     <div class="slide-image">
-                        <img src="assets/hero_alley.png" alt="霓虹小巷" loading="eager">
+                        <img src="assets/hero_alley.png" alt="霓虹小巷" loading="lazy">
                     </div>
                     <div class="slide-caption">有些秘密，值得被重新发现；有些人，注定会再次相遇</div>
                 </div>
@@ -1709,7 +1724,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 04 · 觉醒</div>
                     <div class="slide-image">
-                        <img src="assets/hero_energy.png" alt="能量觉醒" loading="eager">
+                        <img src="assets/hero_energy.png" alt="能量觉醒" loading="lazy">
                     </div>
                     <div class="slide-caption">「力量从未被束缚，它注定改变一切」</div>
                 </div>
@@ -1720,7 +1735,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 05 · 目标</div>
                     <div class="slide-image">
-                        <img src="assets/hero_map.png" alt="冒险地图" loading="eager">
+                        <img src="assets/hero_map.png" alt="冒险地图" loading="lazy">
                     </div>
                     <div class="slide-caption">传说中的群岛已标出，航线由我们重新绘制</div>
                 </div>
@@ -1731,7 +1746,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 06 · 连接</div>
                     <div class="slide-image">
-                        <img src="assets/story_bridge.png" alt="重逢之桥" loading="eager">
+                        <img src="assets/story_bridge.png" alt="重逢之桥" loading="lazy">
                     </div>
                     <div class="slide-caption">距离曾经把我们分开，但爱总能架起一座桥</div>
                 </div>
@@ -1742,7 +1757,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 07 · 希望</div>
                     <div class="slide-image">
-                        <img src="assets/hero_dawn.png" alt="黎明曙光" loading="eager">
+                        <img src="assets/hero_dawn.png" alt="黎明曙光" loading="lazy">
                     </div>
                     <div class="slide-caption">每个日出都在提醒：今天是一张空白页，由我们共同书写</div>
                 </div>
@@ -1753,7 +1768,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 08 · 同行</div>
                     <div class="slide-image">
-                        <img src="assets/story_journey.png" alt="共同旅程" loading="eager">
+                        <img src="assets/story_journey.png" alt="共同旅程" loading="lazy">
                     </div>
                     <div class="slide-caption">重要的不是目的地，而是谁在你身边一起走完这段路</div>
                 </div>
@@ -1764,7 +1779,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 09 · 庆典</div>
                     <div class="slide-image">
-                        <img src="assets/story_fireworks.png" alt="胜利烟花" loading="eager">
+                        <img src="assets/story_fireworks.png" alt="胜利烟花" loading="lazy">
                     </div>
                     <div class="slide-caption">每一个挑战、每一次牺牲、每一个梦想——都值得庆祝</div>
                 </div>
@@ -1775,7 +1790,7 @@
                 <div class="slide-content image-slide">
                     <div class="chapter-label">CHAPTER 10 · 新章</div>
                     <div class="slide-image">
-                        <img src="assets/story_door.png" alt="开启之门" loading="eager">
+                        <img src="assets/story_door.png" alt="开启之门" loading="lazy">
                     </div>
                     <div class="slide-caption">这扇门后，是一个全新的开始——你愿意一起推开它吗？</div>
                 </div>
@@ -2383,6 +2398,31 @@
             
             // 初始化第一张
             slides[0].classList.add('active');
+
+            // 等待第一张图片加载完成后再开始动画
+            const firstImg = slides[0].querySelector('img');
+            if (firstImg) {
+                if (firstImg.complete) {
+                    // 图片已缓存，立即开始
+                    hideLoadingAndStart();
+                } else {
+                    firstImg.onload = hideLoadingAndStart;
+                    firstImg.onerror = hideLoadingAndStart;
+                    // 3秒超时保护
+                    setTimeout(hideLoadingAndStart, 3000);
+                }
+            } else {
+                hideLoadingAndStart();
+            }
+
+            function hideLoadingAndStart() {
+                const hint = document.getElementById('loadingHint');
+                if (hint) hint.style.display = 'none';
+                // 确保自动播放开始
+                if (!autoPlayTimer) {
+                    scheduleNextAutoPlay();
+                }
+            }
 
             // 点击最后一张可立即结束
             intro.addEventListener('click', function() {
