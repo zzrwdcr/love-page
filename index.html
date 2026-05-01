@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>致我最在意的人</title>
+    <title>复合者联盟 · 重逢行动简报</title>
     
     <!-- 微信分享优化 -->
-    <meta property="og:title" content="💌 致我最在意的人">
-    <meta property="og:description" content="有些话攒了很久，想亲口对你说——给我一分钟，读完这封信。">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=400&fit=crop">
+    <meta property="og:title" content="⚡ 复合者联盟 · 归队召唤">
+    <meta property="og:description" content="存档还在、默契没丢——复合者联盟正式集结，愿不愿意和我一起，把那趟没完成的冒险接上续章。">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1635860616622-9427d4d4988d?w=400&h=400&fit=crop">
     
     <!-- iOS 优化 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#29b6f6">
+    <meta name="theme-color" content="#15151f">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -30,20 +30,15 @@
             overflow-x: hidden;
             overflow-y: auto;
             position: relative;
-            /* 整张《星夜》铺满；上层弱渐变压住一点对比，突出中间卡片 */
-            background-color: #0c1c38;
+            /* 超级英雄电影海报背景 */
+            background-color: #05070c;
             background-image:
-                linear-gradient(
-                    168deg,
-                    rgba(8, 18, 40, 0.42) 0%,
-                    rgba(16, 40, 64, 0.28) 40%,
-                    rgba(12, 32, 48, 0.48) 100%
-                ),
-                url('assets/starry-night-reference.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-attachment: scroll;
+                url('assets/hero_poster_bg.png'),
+                radial-gradient(circle at 50% 100%, rgba(5, 7, 12, 0.3), #05070c 100%);
+            background-size: cover, auto;
+            background-position: center center, center bottom;
+            background-repeat: no-repeat, no-repeat;
+            background-attachment: fixed, scroll;
         }
 
         /* 主容器 */
@@ -58,7 +53,7 @@
             align-items: center;
         }
 
-        /* ===== 信封主页：卡通轻快蓝色风 ===== */
+        /* ===== 任务简报信封：超级英雄漫画风（原创意象，不使用官方商标素材）===== */
         .envelope-page {
             width: 100%;
             max-width: 400px;
@@ -69,54 +64,379 @@
             padding: 0 8px;
         }
 
-        /* 轻快卡通星屑高光 */
+        /* ===== 简洁滑入相册开场 - 全屏覆盖 ===== */
+        .slideshow-intro {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: #05070c;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 9998;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            z-index: 1;
+        }
+
+        .slide.active {
+            transform: translateY(0);
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slide.up {
+            transform: translateY(-100%);
+            opacity: 0;
+            z-index: 3;
+        }
+
+        /* 封面 - 全屏 */
+        .cover-slide {
+            background: linear-gradient(135deg, #0a0e14 0%, #1e293b 50%, #0a0e14 100%);
+            background-size: cover;
+        }
+
+        .cover-badge {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            padding: 10px 20px;
+            background: #dc2626;
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.2em;
+            transform: rotate(5deg);
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .cover-title {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(48px, 12vw, 80px);
+            font-weight: 400;
+            line-height: 0.9;
+            color: #fff;
+            text-shadow:
+                4px 4px 0 #dc2626,
+                8px 8px 0 rgba(0, 0, 0, 0.5);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .cover-subtitle {
+            font-size: clamp(16px, 3vw, 22px);
+            color: #fbbf24;
+            letter-spacing: 0.15em;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .cover-hint {
+            position: absolute;
+            bottom: 60px;
+            font-size: 16px;
+            color: #fbbf24;
+            animation: pulse 2s infinite;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 24px;
+            border-radius: 999px;
+            border: 2px solid rgba(245, 198, 60, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* 图片页 - 全屏 */
+        .image-slide {
+            background: linear-gradient(180deg, #05070c 0%, #0a0e14 50%, #1e293b 100%);
+            justify-content: flex-start;
+            padding-top: 80px;
+        }
+
+        .chapter-label {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            color: #fbbf24;
+            letter-spacing: 0.2em;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 16px;
+            border: 2px solid rgba(245, 198, 60, 0.5);
+            z-index: 10;
+        }
+
+        .slide-image {
+            width: 90vw;
+            height: 70vh;
+            max-width: 1200px;
+            max-height: 800px;
+            border: 4px solid #0f172a;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(245, 198, 60, 0.2);
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .slide-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .slide-caption {
+            padding: 16px 32px;
+            background: rgba(220, 38, 38, 0.95);
+            border: 3px solid #0f172a;
+            font-size: clamp(14px, 2.5vw, 18px);
+            color: #fff;
+            font-style: italic;
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 85vw;
+            z-index: 10;
+        }
+
+        /* 文字页 - 全屏 */
+        .text-slide {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 80px 60px;
+        }
+
+        .brief-box {
+            font-size: clamp(20px, 4vw, 28px);
+            color: #1e293b;
+            line-height: 2;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 900px;
+        }
+
+        .brief-box p {
+            margin-bottom: 20px;
+        }
+
+        .brief-box .highlight {
+            font-weight: 800;
+            color: #dc2626;
+            font-size: 1.3em;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .comic-bubble {
+            padding: 20px 32px;
+            background: #fff;
+            border: 4px solid #0f172a;
+            border-radius: 20px;
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: #0f172a;
+            font-weight: 700;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
+            position: relative;
+            max-width: 80vw;
+        }
+
+        .comic-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 18px 18px 0;
+            border-style: solid;
+            border-color: #0f172a transparent transparent;
+        }
+
+        /* 最终页 - 全屏 */
+        .final-slide {
+            background: linear-gradient(135deg, #05070c 0%, #0f172a 50%, #1e293b 100%);
+        }
+
+        .final-lines {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .final-lines span:first-child {
+            font-size: clamp(28px, 5vw, 40px);
+            color: #e2e8f0;
+            text-align: center;
+            max-width: 80vw;
+        }
+
+        .final-word {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(56px, 12vw, 100px);
+            color: #fbbf24;
+            text-shadow:
+                4px 4px 0 #000,
+                0 0 60px rgba(251, 191, 36, 0.8),
+                0 0 120px rgba(251, 191, 36, 0.4);
+            animation: wordPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes wordPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .final-icon {
+            font-size: clamp(80px, 15vw, 140px);
+            margin-bottom: 36px;
+            filter: drop-shadow(0 0 40px rgba(251, 191, 36, 0.9));
+            animation: iconGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes iconGlow {
+            0%, 100% { filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.7)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 60px rgba(251, 191, 36, 1)); transform: scale(1.15); }
+        }
+
+        .final-action {
+            position: absolute;
+            bottom: 60px;
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: #fbbf24;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            animation: pulse 1.5s infinite;
+            background: rgba(220, 38, 38, 0.8);
+            padding: 14px 28px;
+            border: 3px solid #0f172a;
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        /* 分页指示器 - 仅作为视觉指示器（不可点击） */
+        .slideshow-dots {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 14px;
+            z-index: 10000;
+            max-width: 90%;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+            pointer-events: none; /* 整个区域不可点击 */
+        }
+
+        .slideshow-dots .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: default;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            pointer-events: none; /* 不可点击 */
+        }
+
+        .slideshow-dots .dot.active {
+            background: #fbbf24;
+            border-color: #0f172a;
+            box-shadow: 0 0 16px rgba(251, 191, 36, 1);
+            transform: scale(1.4);
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.7);
+            transform: scale(1.2);
+        }
+
+        /* ===== 任务简报信封 ===== */
+
+        /* 漫画高光 + 星光颗粒 */
         .envelope-anime-glitter {
             position: absolute;
             inset: 0;
             z-index: 1;
             pointer-events: none;
             border-radius: 22px;
-            opacity: 0.45;
+            opacity: 0.38;
             background-image:
-                radial-gradient(circle at 78% 8%, rgba(255, 255, 255, 0.65) 0, transparent 18%),
-                radial-gradient(circle at 92% 14%, rgba(189, 235, 255, 0.55) 0, transparent 1.1%),
-                radial-gradient(circle at 22% 18%, rgba(165, 245, 255, 0.5) 0, transparent 1.2%),
-                radial-gradient(circle at 68% 6%, rgba(255, 240, 180, 0.35) 0, transparent 0.9%);
+                radial-gradient(circle at 82% 6%, rgba(255, 255, 255, 0.5) 0, transparent 20%),
+                radial-gradient(circle at 28% 18%, rgba(212, 40, 40, 0.35) 0, transparent 1.2%),
+                radial-gradient(circle at 64% 12%, rgba(245, 198, 60, 0.45) 0, transparent 1%),
+                radial-gradient(circle at 92% 40%, rgba(59, 130, 246, 0.28) 0, transparent 0.95%);
+            mix-blend-mode: screen;
         }
 
         .envelope-card {
             position: relative;
-            border-radius: 28px;
-            padding: 3px;
+            border-radius: 22px;
+            padding: 4px;
             background: linear-gradient(
-                145deg,
-                #81d4fa,
-                #4fc3f7,
-                #29b6f6,
-                #03a9f4
+                148deg,
+                #d62828,
+                #7f1d1d,
+                #1e293b,
+                #c2410c
             );
             box-shadow:
-                0 18px 42px rgba(0, 110, 180, 0.25),
-                0 4px 12px rgba(255, 255, 255, 0.4) inset;
+                0 26px 60px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(245, 198, 60, 0.35),
+                0 4px 20px rgba(212, 40, 40, 0.45) inset;
         }
 
         .envelope-card-inner {
             position: relative;
-            border-radius: 25px;
+            border-radius: 19px;
             padding: clamp(24px, 6vw, 34px) clamp(20px, 5vw, 30px) clamp(28px, 6vw, 36px);
             background: linear-gradient(
-                168deg,
-                rgba(224, 248, 255, 0.98) 0%,
-                rgba(179, 235, 255, 0.92) 38%,
-                rgba(165, 225, 255, 0.88) 100%
+                172deg,
+                rgba(253, 250, 240, 0.98) 0%,
+                rgba(237, 233, 220, 0.96) 45%,
+                rgba(229, 222, 204, 0.94) 100%
             );
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.85);
+            border: 3px solid #0f172a;
             box-shadow:
-                inset 0 2px 0 rgba(255, 255, 255, 0.75),
-                inset 0 -3px 8px rgba(0, 110, 180, 0.08);
+                inset 0 2px 0 rgba(255, 255, 255, 0.55),
+                inset 0 -6px 16px rgba(15, 23, 42, 0.12);
         }
 
         .envelope-card-inner::before {
@@ -124,44 +444,51 @@
             position: absolute;
             inset: 0;
             z-index: 0;
-            background: 
-                radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.75), transparent 42%),
-                radial-gradient(circle at 18% 78%, rgba(165, 245, 255, 0.45), transparent 48%);
+            background:
+                radial-gradient(circle at 88% 8%, rgba(212, 40, 40, 0.16), transparent 45%),
+                radial-gradient(circle at 18% 82%, rgba(37, 99, 235, 0.12), transparent 48%);
             pointer-events: none;
         }
 
         .envelope-card-inner::after {
             content: '';
             position: absolute;
-            top: 14px;
-            right: 16px;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 38% 32%, #fff, #81d4fa 48%, transparent 72%);
-            box-shadow: 0 0 18px rgba(129, 212, 250, 0.6);
+            top: 12px;
+            right: 14px;
+            width: 32px;
+            height: 12px;
+            border-radius: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(245, 198, 60, 0.9),
+                rgba(245, 198, 60, 0.9) 4px,
+                rgba(15, 23, 42, 0.35) 4px,
+                rgba(15, 23, 42, 0.35) 8px
+            );
+            opacity: 0.55;
             pointer-events: none;
-            opacity: 0.85;
         }
 
         .envelope-kicker {
+            font-family: 'Bebas Neue', Impact, sans-serif;
             position: relative;
             z-index: 2;
             text-align: center;
-            margin: 0 auto 16px;
-            max-width: 300px;
-            font-size: 11.5px;
-            letter-spacing: 0.42em;
+            margin: 0 auto 14px;
+            max-width: 320px;
+            font-size: 18px;
+            letter-spacing: 0.38em;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #0277bd, #0288d1);
+            background: linear-gradient(90deg, #b91c1c, #1d4ed8);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: #0277bd;
-            font-weight: 700;
-            line-height: 1.4;
+            color: #b91c1c;
+            font-weight: 400;
+            line-height: 1.35;
             padding-bottom: 8px;
-            border-bottom: 2px dashed rgba(2, 119, 189, 0.35);
+            border-bottom: 3px solid #0f172a;
+            text-shadow: none;
         }
 
         .envelope-visual-wrap {
@@ -186,13 +513,13 @@
             transform: translateX(-50%);
             width: 82%;
             height: 52%;
-            background: linear-gradient(175deg, #f0faff 4%, #e0f4ff 52%, #b2e6ff 100%);
-            border-radius: 12px 12px 6px 6px;
-            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            background: linear-gradient(175deg, #fffefb 6%, #f5f2e8 52%, #e8dfd0 100%);
+            border-radius: 11px 11px 5px 5px;
+            border: 2px solid rgba(15, 23, 42, 0.35);
             box-shadow:
-                0 -8px 18px rgba(0, 90, 150, 0.1),
-                inset 0 3px 0 rgba(255, 255, 255, 0.85),
-                0 0 0 1px rgba(2, 136, 209, 0.15);
+                0 -8px 20px rgba(0, 0, 0, 0.12),
+                inset 0 3px 0 rgba(255, 255, 255, 0.75),
+                0 0 0 1px rgba(185, 28, 28, 0.2);
             z-index: 1;
             pointer-events: none;
         }
@@ -203,15 +530,15 @@
             left: 14%;
             right: 14%;
             top: 22px;
-            height: 9px;
+            height: 10px;
             background: repeating-linear-gradient(
                 88deg,
                 transparent,
-                transparent 13px,
-                rgba(2, 136, 209, 0.18) 13px,
-                rgba(2, 136, 209, 0.18) 19px
+                transparent 12px,
+                rgba(15, 23, 42, 0.12) 12px,
+                rgba(15, 23, 42, 0.12) 18px
             );
-            opacity: 0.75;
+            opacity: 0.7;
         }
 
         .envelope-chrome {
@@ -219,11 +546,11 @@
             inset: 0;
             border-radius: 0 0 26px 26px;
             box-shadow:
-                inset 0 0 0 2px rgba(255, 255, 255, 0.55),
-                0 0 0 1px rgba(2, 119, 189, 0.25);
+                inset 0 0 0 2px rgba(255, 255, 255, 0.4),
+                0 0 0 1px rgba(15, 23, 42, 0.4);
             pointer-events: none;
             z-index: 13;
-            opacity: 0.7;
+            opacity: 0.68;
         }
 
         .envelope {
@@ -248,12 +575,12 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(162deg, #81d4fa 0%, #4fc3f7 48%, #29b6f6 100%);
+            background: linear-gradient(162deg, #1e293b 0%, #0f172a 48%, #1e293b 100%);
             border-radius: 0 0 24px 24px;
             box-shadow:
-                0 18px 38px rgba(0, 90, 160, 0.22),
-                inset 0 4px 0 rgba(255, 255, 255, 0.65),
-                inset 0 -18px 32px rgba(2, 119, 189, 0.15);
+                0 22px 38px rgba(0, 0, 0, 0.4),
+                inset 0 4px 0 rgba(255, 255, 255, 0.12),
+                inset 0 -20px 40px rgba(212, 40, 40, 0.15);
         }
 
         .envelope-bottom {
@@ -262,10 +589,10 @@
             left: 0;
             width: 100%;
             height: 54%;
-            background: linear-gradient(172deg, #b2ebf2 0%, #81d4fa 55%, #4fc3f7 100%);
+            background: linear-gradient(172deg, #991b1b 0%, #dc2626 52%, #7f1d1d 100%);
             clip-path: polygon(0 100%, 50% 4%, 100% 100%);
             border-radius: 0 0 24px 24px;
-            box-shadow: inset 0 -6px 14px rgba(2, 119, 189, 0.2);
+            box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.35);
         }
 
         .envelope-left {
@@ -274,7 +601,7 @@
             left: 0;
             width: 52%;
             height: 100%;
-            background: linear-gradient(136deg, #b2ebf2 0%, #81d4fa 52%, #4fc3f7 100%);
+            background: linear-gradient(136deg, #1d4ed8 0%, #1e40af 52%, #1e293b 100%);
             clip-path: polygon(0 0, 0 100%, 96% 52%);
         }
 
@@ -284,7 +611,7 @@
             right: 0;
             width: 52%;
             height: 100%;
-            background: linear-gradient(216deg, #b2ebf2 0%, #81d4fa 52%, #4fc3f7 100%);
+            background: linear-gradient(216deg, #1d4ed8 0%, #1e293b 52%, #991b1b 100%);
             clip-path: polygon(4% 0, 100% 0, 100% 100%);
         }
 
@@ -294,15 +621,15 @@
             left: 0;
             width: 100%;
             height: 54%;
-            background: linear-gradient(195deg, #e0f7fa 4%, #b2ebf2 38%, #81d4fa 100%);
+            background: linear-gradient(195deg, #fcd34d 6%, #d97706 38%, #7f1d1d 100%);
             clip-path: polygon(0 0, 50% 100%, 100% 0);
             transform-origin: top center;
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 10;
             box-shadow:
-                0 -5px 14px rgba(0, 90, 160, 0.18),
-                inset 0 12px 18px rgba(255, 255, 255, 0.75),
-                inset 0 -2px 0 rgba(2, 136, 209, 0.25);
+                0 -6px 16px rgba(0, 0, 0, 0.28),
+                inset 0 12px 22px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 0 rgba(15, 23, 42, 0.35);
         }
 
         .envelope.flap-open .envelope-flap {
@@ -322,13 +649,13 @@
             justify-content: center;
             font-size: 26px;
             z-index: 14;
-            background: linear-gradient(135deg, #fff176, #ffee58);
-            border: 3px solid #29b6f6;
+            background: linear-gradient(145deg, #fef08a, #f59e0b);
+            border: 3px solid #0f172a;
             box-shadow:
-                0 8px 20px rgba(2, 119, 189, 0.25),
-                inset 0 3px 0 rgba(255, 255, 255, 0.85),
-                inset 0 -6px 12px rgba(255, 193, 7, 0.25);
-            color: #0277bd;
+                0 10px 22px rgba(0, 0, 0, 0.35),
+                inset 0 4px 0 rgba(255, 255, 255, 0.85),
+                0 0 0 2px rgba(212, 40, 40, 0.45);
+            color: #0f172a;
         }
 
         .envelope-shadow {
@@ -338,7 +665,7 @@
             transform: translateX(-50%);
             width: min(286px, 84vw);
             height: 34px;
-            background: radial-gradient(ellipse, rgba(2, 80, 140, 0.28) 0%, transparent 68%);
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.5) 0%, transparent 68%);
             pointer-events: none;
             z-index: 0;
         }
@@ -351,32 +678,34 @@
             margin: 24px auto 0;
             padding: 20px 8px 0;
             text-align: center;
-            border-top: 2px dashed rgba(2, 136, 209, 0.35);
+            border-top: 3px dashed rgba(15, 23, 42, 0.28);
         }
 
         .envelope-hint h1 {
-            color: #01579b;
-            font-size: clamp(23px, 6vw, 29px);
+            color: #0f172a;
+            font-size: clamp(21px, 5.8vw, 27px);
             font-weight: 700;
-            text-shadow: 0 3px 12px rgba(2, 119, 189, 0.25);
+            text-shadow:
+                2px 2px 0 rgba(253, 224, 71, 0.55),
+                0 2px 12px rgba(212, 40, 40, 0.15);
             margin: 0 0 12px;
-            letter-spacing: 0.12em;
-            line-height: 1.25;
-            background: linear-gradient(88deg, #0277bd, #03a9f4);
+            letter-spacing: 0.08em;
+            line-height: 1.35;
+            background: linear-gradient(95deg, #b91c1c, #1d4ed8);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .envelope-hint .envelope-desc {
-            color: #01579b;
+            color: #334155;
             font-size: clamp(13.5px, 3.6vw, 15.5px);
             letter-spacing: 0.02em;
-            line-height: 1.75;
+            line-height: 1.8;
             text-align: center;
             margin: 0 auto;
             max-width: 94%;
-            font-weight: 400;
+            font-weight: 500;
         }
 
         .tap-hint {
@@ -388,15 +717,18 @@
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
-            padding: 11px 24px;
-            background: rgba(224, 248, 255, 0.85);
-            border: 2px solid #29b6f6;
-            border-radius: 9999px;
-            color: #01579b;
-            font-size: 13.5px;
-            letter-spacing: 0.08em;
-            font-weight: 600;
-            box-shadow: 0 8px 24px rgba(2, 136, 209, 0.22);
+            padding: 12px 22px;
+            background: linear-gradient(135deg, rgba(212, 40, 40, 0.14), rgba(29, 78, 216, 0.12));
+            border: 3px solid #0f172a;
+            border-radius: 8px;
+            color: #0f172a;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            box-shadow:
+                4px 4px 0 #0f172a,
+                0 12px 28px rgba(0, 0, 0, 0.12);
+            text-transform: uppercase;
         }
 
         .envelope-corner {
@@ -406,8 +738,8 @@
             left: 20px;
             width: 24px;
             height: 24px;
-            border-left: 3px solid #29b6f6;
-            border-top: 3px solid #29b6f6;
+            border-left: 4px solid #b91c1c;
+            border-top: 4px solid #b91c1c;
             border-radius: 6px 0 0 0;
             pointer-events: none;
         }
@@ -418,9 +750,282 @@
             bottom: 20px;
             right: 20px;
             border: none;
-            border-right: 3px solid #29b6f6;
-            border-bottom: 3px solid #29b6f6;
+            border-right: 4px solid #1d4ed8;
+            border-bottom: 4px solid #1d4ed8;
             border-radius: 0 0 6px 0;
+        }
+
+        /* ===== 超级英雄任务卡片 - 使用生成海报风格 ===== */
+        .hero-mission-card {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            border-radius: 24px;
+            padding: 4px;
+            background: linear-gradient(
+                135deg,
+                rgba(212, 40, 40, 0.8),
+                rgba(37, 99, 235, 0.6),
+                rgba(245, 198, 60, 0.4)
+            );
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.7),
+                0 0 0 2px rgba(245, 198, 60, 0.4),
+                inset 0 0 60px rgba(212, 40, 40, 0.2);
+            overflow: hidden;
+        }
+
+        .hero-mission-card::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 20px;
+            background:
+                linear-gradient(145deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.96) 50%, rgba(15, 23, 42, 0.98) 100%),
+                url('assets/hero_poster_bg.png');
+            background-size: cover, 200% auto;
+            background-position: center, center top;
+            background-blend-mode: normal, overlay;
+            opacity: 0.95;
+            z-index: 0;
+        }
+
+        .hero-mission-inner {
+            position: relative;
+            z-index: 1;
+            padding: clamp(28px, 7vw, 40px) clamp(22px, 5vw, 32px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 机密徽章 */
+        .classified-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: #fff;
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: 2px solid #fbbf24;
+            box-shadow:
+                0 4px 12px rgba(220, 38, 38, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: rotate(8deg);
+            z-index: 10;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 任务头部 */
+        .mission-header {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .mission-kicker {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(14px, 3.5vw, 16px);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #fbbf24;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .mission-title {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(36px, 9vw, 52px);
+            font-weight: 400;
+            line-height: 1.1;
+            color: #fff;
+            text-shadow:
+                3px 3px 0 #dc2626,
+                6px 6px 0 rgba(0, 0, 0, 0.5);
+            margin: 0;
+            letter-spacing: 0.05em;
+        }
+
+        /* 英雄信封区域 */
+        .hero-envelope-wrap {
+            position: relative;
+            margin: 20px 0 28px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-envelope-float {
+            position: relative;
+            perspective: 1200px;
+            animation: envelopeFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes envelopeFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+
+        .hero-envelope {
+            position: relative;
+            width: clamp(220px, 65vw, 300px);
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .hero-envelope:hover {
+            transform: scale(1.05) rotateY(5deg);
+            filter: drop-shadow(0 20px 40px rgba(245, 198, 60, 0.3));
+        }
+
+        .hero-envelope:active {
+            transform: scale(0.98);
+        }
+
+        .hero-envelope-img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                0 0 0 3px rgba(245, 198, 60, 0.3);
+            display: block;
+        }
+
+        /* 信封发光效果 */
+        .envelope-glow {
+            position: absolute;
+            inset: -10px;
+            border-radius: 20px;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(245, 198, 60, 0.4) 0%,
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none !important;
+            z-index: -1;
+        }
+
+        .hero-envelope:hover .envelope-glow {
+            opacity: 1;
+        }
+
+        /* 脉冲动画 */
+        .envelope-pulse {
+            position: absolute;
+            inset: -4px;
+            border-radius: 16px;
+            border: 2px solid rgba(245, 198, 60, 0.6);
+            opacity: 0;
+            animation: envelopePulse 2s ease-out infinite;
+            pointer-events: none !important;
+        }
+
+        @keyframes envelopePulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+
+        .hero-envelope-shadow {
+            width: 70%;
+            height: 20px;
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4), transparent);
+            margin-top: 16px;
+            border-radius: 50%;
+            filter: blur(8px);
+        }
+
+        /* 任务简报文字 */
+        .mission-brief {
+            position: relative;
+            z-index: 2;
+            max-width: 340px;
+        }
+
+        .mission-desc {
+            color: #cbd5e1;
+            font-size: clamp(14px, 3.8vw, 16px);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .mission-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.9), rgba(185, 28, 28, 0.9));
+            border: 2px solid #fbbf24;
+            border-radius: 8px;
+            color: #fff;
+            font-size: clamp(13px, 3.5vw, 15px);
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            box-shadow:
+                0 8px 24px rgba(220, 38, 38, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: ctaGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes ctaGlow {
+            0%, 100% { box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4), 0 0 20px rgba(245, 198, 60, 0.2); }
+            50% { box-shadow: 0 8px 24px rgba(220, 38, 38, 0.5), 0 0 30px rgba(245, 198, 60, 0.4); }
+        }
+
+        .cta-icon {
+            font-size: 18px;
+            animation: iconPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .cta-text {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            letter-spacing: 0.2em;
+        }
+
+        /* 漫画装饰 */
+        .comic-decorations {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .deco-line {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(245, 198, 60, 0.5), transparent);
+        }
+
+        .deco-dots {
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-image: radial-gradient(circle, rgba(245, 198, 60, 0.3) 2px, transparent 2px);
+            background-size: 12px 12px;
+            opacity: 0.6;
         }
 
         /* ===== 信纸页面 ===== */
@@ -438,14 +1043,15 @@
         .letter-inner {
             background: linear-gradient(
                 178deg,
-                rgba(248, 250, 252, 0.97) 0%,
-                rgba(224, 242, 254, 0.32) 100%
+                rgba(255, 252, 246, 0.98) 0%,
+                rgba(237, 230, 214, 0.55) 100%
             );
-            border-radius: 20px;
+            border-radius: 14px;
             padding: 35px 30px;
+            border: 3px solid #0f172a;
             box-shadow:
-                0 24px 72px rgba(8, 47, 73, 0.22),
-                0 10px 28px rgba(14, 116, 144, 0.12),
+                12px 12px 0 rgba(212, 40, 40, 0.35),
+                0 24px 72px rgba(0, 0, 0, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.75);
             animation: letterUnfold 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             transform-origin: top center;
@@ -474,8 +1080,8 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #e0f2fe, #7dd3fc, #38bdf8, #0ea5e9, #bae6fd);
+            height: 8px;
+            background: linear-gradient(90deg, #d62828, #fbbf24, #2563eb, #fbbf24, #d62828);
             background-size: 280% 100%;
             animation: gradientFlow 8s ease infinite !important;
         }
@@ -497,11 +1103,11 @@
             width: 48px;
             height: 2px;
             margin: 16px auto 0;
-            background: linear-gradient(90deg, transparent, #7dd3fc, transparent);
+            background: linear-gradient(90deg, transparent, #334155, transparent);
         }
 
         .letter-header h2 {
-            color: #0369a1;
+            color: #0f172a;
             font-size: 24px;
             font-weight: 700;
             letter-spacing: 3px;
@@ -510,14 +1116,14 @@
         .letter-subtitle {
             margin-top: 10px;
             font-size: 13px;
-            color: rgba(71, 85, 105, 0.9);
+            color: rgba(51, 65, 85, 0.95);
             font-weight: 400;
             letter-spacing: 1px;
         }
 
         .question-hint {
             font-size: 13px;
-            color: #0e7490;
+            color: #334155;
             line-height: 1.65;
             margin-bottom: 20px;
             font-weight: 400;
@@ -556,7 +1162,7 @@
             display: inline-block;
             width: 2px;
             height: 1.2em;
-            background: linear-gradient(to bottom, #38bdf8, #0369a1);
+            background: linear-gradient(to bottom, #d62828, #2563eb);
             margin-left: 3px;
             animation: cursorBlink 0.8s infinite;
             vertical-align: text-bottom;
@@ -572,9 +1178,13 @@
             text-align: center;
             margin-top: 30px;
             padding: 25px;
-            background: linear-gradient(135deg, rgba(224, 242, 254, 0.75) 0%, rgba(125, 211, 252, 0.38) 100%);
-            border-radius: 16px;
-            border: 1px solid rgba(125, 211, 252, 0.45);
+            background: linear-gradient(
+                135deg,
+                rgba(212, 40, 40, 0.12) 0%,
+                rgba(37, 99, 235, 0.1) 100%
+            );
+            border-radius: 12px;
+            border: 3px solid #0f172a;
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
@@ -602,7 +1212,7 @@
         }
 
         .question h3 {
-            color: #0c4a6e;
+            color: #0f172a;
             font-size: 20px;
             margin-bottom: 25px;
             font-weight: 600;
@@ -648,14 +1258,19 @@
         }
 
         .btn-yes {
-            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
             color: #fff;
-            box-shadow: 0 8px 26px rgba(3, 105, 161, 0.38);
+            border: 2px solid #0f172a;
+            box-shadow:
+                4px 4px 0 #0f172a,
+                0 8px 26px rgba(212, 40, 40, 0.45);
         }
 
         .btn-yes:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 36px rgba(14, 116, 144, 0.45);
+            box-shadow:
+                5px 5px 0 #0f172a,
+                0 12px 36px rgba(212, 40, 40, 0.5);
         }
 
         .btn-yes:active {
@@ -663,14 +1278,15 @@
         }
 
         .btn-no {
-            background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(226, 232, 240, 0.95) 100%);
-            color: #64748b;
-            box-shadow: 0 4px 16px rgba(8, 47, 73, 0.08);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #475569;
+            border: 2px solid #0f172a;
+            box-shadow: 3px 3px 0 #0f172a;
         }
 
         .btn-no:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 22px rgba(8, 47, 73, 0.12);
+            box-shadow: 4px 4px 0 #0f172a;
         }
 
         /* ===== 成功页面 ===== */
@@ -681,24 +1297,31 @@
             position: fixed;
             inset: 0;
             z-index: 200;
-            background: 
-                linear-gradient(135deg, #fce7f3 0%, #fdf2f8 35%, #fae8f0 70%, #fce7f3 100%),
-                radial-gradient(circle at 30% 20%, rgba(251, 146, 178, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 70% 65%, rgba(249, 168, 212, 0.22) 0%, transparent 55%),
-                radial-gradient(circle at 20% 80%, rgba(253, 224, 239, 0.18) 0%, transparent 45%);
+            background:
+                linear-gradient(140deg, rgba(10, 14, 26, 0.82) 0%, rgba(20, 24, 46, 0.78) 45%, rgba(15, 18, 32, 0.82) 100%);
             overflow: hidden;
         }
 
-        /* 增加氛围感的背景装饰层 */
+        /* 胜利重聚背景图 */
         .success::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: 
-                radial-gradient(circle at 15% 25%, rgba(251, 113, 133, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 85% 35%, rgba(244, 63, 94, 0.1) 0%, transparent 45%),
-                radial-gradient(circle at 40% 75%, rgba(253, 164, 175, 0.15) 0%, transparent 50%);
-            animation: softPulse 18s ease-in-out infinite;
+            background: url('assets/victory_reunion_bg.png') center center / cover no-repeat;
+            z-index: 0;
+        }
+
+        /* 叠加渐变确保卡片可读性 */
+        .success::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 18% 22%, rgba(212, 40, 40, 0.35) 0%, transparent 48%),
+                radial-gradient(circle at 82% 72%, rgba(37, 99, 235, 0.32) 0%, transparent 52%),
+                radial-gradient(circle at 50% 8%, rgba(245, 198, 60, 0.15) 0%, transparent 42%),
+                linear-gradient(180deg, rgba(10, 14, 26, 0.4) 0%, rgba(10, 14, 26, 0.2) 50%, rgba(10, 14, 26, 0.4) 100%);
+            animation: softPulse 14s ease-in-out infinite;
             pointer-events: none;
             z-index: 1;
         }
@@ -714,222 +1337,62 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        .success-card {
-            background: linear-gradient(
-                152deg,
-                rgba(255, 240, 245, 0.98) 0%,
-                rgba(253, 224, 239, 0.96) 35%,
-                rgba(249, 210, 230, 0.94) 70%,
-                rgba(255, 182, 193, 0.88) 100%
-            );
-            border: 4px solid rgba(255, 182, 193, 0.75);
-            border-radius: 32px;
-            padding: 58px 48px;
-            box-shadow:
-                0 40px 95px -10px rgba(236, 72, 153, 0.45),
-                0 20px 45px rgba(249, 168, 212, 0.3),
-                inset 0 8px 32px rgba(255, 255, 255, 0.95),
-                inset 0 -6px 25px rgba(251, 146, 178, 0.25);
+        .success-text {
             position: relative;
-            overflow: hidden;
-            max-width: 440px;
-            margin: 30px auto;
-            z-index: 5;
-            backdrop-filter: blur(12px);
-        }
-
-        .success-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 25% 20%, rgba(251, 146, 178, 0.55) 0%, transparent 50%),
-                radial-gradient(circle at 75% 65%, rgba(249, 168, 212, 0.45) 0%, transparent 55%),
-                radial-gradient(circle at 40% 80%, rgba(253, 224, 239, 0.6) 0%, transparent 48%);
-            pointer-events: none;
-            z-index: 1;
-            animation: heartGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes heartGlow {
-            0%, 100% { opacity: 0.75; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.03); }
-        }
-
-        .success-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .heart-ring {
-            width: 138px;
-            height: 138px;
-            margin: 0 auto 32px;
-            position: relative;
-            z-index: 3;
-        }
-
-        .heart-ring::before {
-            content: '💗';
-            font-size: 78px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: heartbeat 1.1s ease-in-out infinite;
-            filter: drop-shadow(0 0 18px #ff8fb0);
-            z-index: 2;
-        }
-
-        .heart-ring::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 138px;
-            height: 138px;
-            border: 6px solid rgba(251, 146, 178, 0.65);
-            border-radius: 50%;
-            animation: ringPulse 1.8s ease-out infinite;
-            box-shadow: 0 0 35px rgba(251, 146, 178, 0.7);
-            z-index: 1;
-        }
-
-        @keyframes ringPulse {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            25% { transform: translate(-50%, -50%) scale(1.15); }
-            50% { transform: translate(-50%, -50%) scale(1); }
-            75% { transform: translate(-50%, -50%) scale(1.15); }
+            z-index: 10;
+            max-width: 520px;
+            padding: 40px;
+            text-align: center;
         }
 
         .success h2 {
-            color: #831c4a;
+            color: #ffffff;
             font-size: 36px;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 20px;
-            letter-spacing: 1.5px;
-            text-shadow: 
-                0 6px 20px rgba(251, 146, 178, 0.5),
-                0 2px 8px rgba(255, 255, 255, 0.9);
-            background: linear-gradient(90deg, #9f1239, #e11d48, #db2777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.08em;
+            text-shadow:
+                0 2px 10px rgba(0, 0, 0, 0.5),
+                0 4px 20px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-tagline {
+            font-size: 16px;
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin-bottom: 24px;
+            text-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.6),
+                0 0 20px rgba(0, 0, 0, 0.4);
         }
 
         .success p {
-            color: #5f2a45;
-            font-size: 16.5px;
-            line-height: 1.88;
-            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.85);
+            color: #ffffff;
+            font-size: 17px;
+            line-height: 1.9;
+            text-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.6),
+                0 0 16px rgba(0, 0, 0, 0.4);
             margin-bottom: 1.1em;
         }
 
         .success-subtitle {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px dashed rgba(56, 189, 248, 0.35);
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 2px dashed rgba(255, 255, 255, 0.4);
         }
 
         .success-subtitle p {
             font-size: 14px;
-            color: #999;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow:
+                0 2px 6px rgba(0, 0, 0, 0.5),
+                0 0 12px rgba(0, 0, 0, 0.3);
         }
 
-        .confetti-icon {
-            font-size: 24px;
-            margin: 0 5px;
-            animation: confettiFloat 2s ease-in-out infinite;
-            display: inline-block;
-        }
-
-        .confetti-icon:nth-child(2) { animation-delay: 0.3s; }
-        .confetti-icon:nth-child(3) { animation-delay: 0.6s; }
-
-        @keyframes confettiFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(10deg); }
-        }
-
-        /* 背景音乐悬浮按钮 */
-        .music-float {
-            position: fixed;
-            right: 14px;
-            bottom: calc(24px + env(safe-area-inset-bottom));
-            z-index: 2147483645;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 999px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            color: #164e63;
-            background: rgba(255, 255, 255, 0.48);
-            border: 1px solid rgba(125, 211, 252, 0.52);
-            box-shadow:
-                0 10px 30px rgba(8, 47, 73, 0.16),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease,
-                background 0.25s ease;
-        }
-
-        .music-float:active {
-            transform: scale(0.96);
-        }
-
-        .music-float.is-playing {
-            color: #0c4a6e;
-            background: rgba(224, 242, 254, 0.72);
-            border-color: rgba(56, 189, 248, 0.55);
-            box-shadow:
-                0 12px 34px rgba(14, 116, 144, 0.22),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-
-        .music-float__ico {
-            font-size: 18px;
-            line-height: 1;
-            animation: none;
-        }
-
-        .music-float.is-playing .music-float__ico {
-            animation: musicNote 1.8s ease-in-out infinite;
-        }
-
-        @keyframes musicNote {
-            0%, 100% { transform: translateY(0) rotate(-6deg); }
-            50% { transform: translateY(-4px) rotate(6deg); }
-        }
-
-        .music-float__txt {
-            white-space: nowrap;
-        }
-
-        @media (max-width: 380px) {
-            .music-float__txt {
-                display: none;
-            }
-
-            .music-float {
-                padding: 12px;
-            }
-        }
-
-        /* 烟花画布 */
+        /* 烟花画布：叠在全局之上，仍可穿透点击 */
         .fireworks {
             position: fixed;
             top: 0;
@@ -937,7 +1400,24 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 100;
+            z-index: 210;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.65);
+                opacity: 0;
+            }
+            12% {
+                opacity: 0.92;
+            }
+            88% {
+                opacity: 0.88;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(22deg) scale(1);
+                opacity: 0;
+            }
         }
 
         /* 微信提示 */
@@ -960,6 +1440,11 @@
         @keyframes slideUp {
             from { opacity: 0; transform: translateX(-50%) translateY(20px); }
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 1; transform: translateX(-50%) translateY(0); }
+            to { opacity: 0; transform: translateX(-50%) translateY(20px); }
         }
 
         /* 页面切换动画 */
@@ -999,6 +1484,124 @@
                 font-size: 12px;
                 letter-spacing: 0.1em;
             }
+
+            /* 超级英雄信封响应式 */
+            .hero-mission-inner {
+                padding: 24px 18px 28px;
+            }
+
+            .classified-badge {
+                font-size: 11px;
+                padding: 6px 12px;
+                top: 16px;
+                right: 16px;
+            }
+
+            .mission-kicker {
+                font-size: 12px;
+                letter-spacing: 0.2em;
+            }
+
+            .mission-title {
+                font-size: clamp(28px, 8vw, 40px);
+            }
+
+            .hero-envelope {
+                width: clamp(180px, 58vw, 260px);
+            }
+
+            .mission-desc {
+                font-size: 13px;
+                line-height: 1.6;
+            }
+
+            .mission-cta {
+                padding: 12px 20px;
+                font-size: 12px;
+            }
+
+            /* 全屏 slideshow 移动端适配 */
+            .slide {
+                padding: 40px 20px;
+            }
+
+            .cover-badge {
+                top: 20px;
+                right: 20px;
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            .cover-title {
+                font-size: clamp(36px, 10vw, 52px);
+            }
+
+            .cover-hint {
+                bottom: 40px;
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .chapter-label {
+                top: 20px;
+                left: 20px;
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+
+            .slide-image {
+                width: 95vw;
+                height: 60vh;
+                margin-bottom: 20px;
+            }
+
+            .slide-caption {
+                padding: 12px 20px;
+                font-size: 14px;
+                max-width: 95vw;
+            }
+
+            .text-slide {
+                padding: 60px 30px;
+            }
+
+            .brief-box {
+                font-size: clamp(16px, 5vw, 20px);
+            }
+
+            .comic-bubble {
+                padding: 14px 20px;
+                font-size: 14px;
+            }
+
+            .final-lines {
+                gap: 16px;
+            }
+
+            .final-word {
+                font-size: clamp(44px, 12vw, 64px);
+            }
+
+            .final-icon {
+                font-size: 60px;
+            }
+
+            .final-action {
+                bottom: 40px;
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .slideshow-dots {
+                bottom: 40px;
+                gap: 10px;
+                padding: 8px 14px;
+            }
+
+            .slideshow-dots .dot {
+                width: 12px;
+                height: 12px;
+            }
             
             .letter-inner {
                 padding: 25px 20px;
@@ -1033,7 +1636,8 @@
             }
             
             .success-card {
-                padding: 35px 25px;
+                padding: 35px 20px;
+                margin: 20px auto;
             }
             
             .success h2 {
@@ -1073,17 +1677,7 @@
             100% { transform: scale(1) rotate(0deg); }
         }
 
-        /* 全页静态：禁用 CSS 动效并固定依赖动画的最终呈现 */
-        *, *::before, *::after {
-            animation: none !important;
-            animation-duration: 0s !important;
-            transition: none !important;
-        }
-
-        html {
-            scroll-behavior: auto !important;
-        }
-
+        /* 全页静态：仅禁用特定装饰性动画 */
         .sparkle {
             display: none !important;
         }
@@ -1098,41 +1692,9 @@
             transform: none !important;
         }
 
-        .letter-inner {
-            opacity: 1 !important;
-            transform: none !important;
-        }
-
-        /* 允许信纸展开动画（卡通轻快感） */
-        .letter-inner {
-            animation: letterUnfold 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
-        }
-
-        /* 打字机效果支持 - 内容默认隐藏，JS逐字显示 */
-        .letter-content p {
-            opacity: 1 !important;
-            transform: none !important;
-            white-space: pre-wrap;
-        }
-
-        .page-enter {
-            animation: none !important;
-        }
-
         .success {
             opacity: 1 !important;
-            transform: none !important;
-        }
-
-        .heart-ring::before {
-            animation: none !important;
-            transform: translate(-50%, -50%) scale(1) !important;
-        }
-
-        .heart-ring::after {
-            animation: none !important;
-            opacity: 0.55 !important;
-            transform: translate(-50%, -50%) scale(1.12) !important;
+            animation: victoryEnter 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
         }
 
         .confetti-icon {
@@ -1143,53 +1705,221 @@
         .wechat-tip {
             animation: none !important;
         }
+
+        /* 胜利庆典页：恢复所有动效 */
+        .success::before {
+            animation: victoryGlow 8s ease-in-out infinite !important;
+        }
+
+        .success-card::before {
+            animation: heartGlow 4s ease-in-out infinite !important;
+        }
+
+        .success .heart-ring::before {
+            animation: heartbeat 1.15s ease-in-out infinite !important;
+        }
+
+        .success .heart-ring::after {
+            animation: ringPulse 1.85s ease-out infinite !important;
+            opacity: 1 !important;
+        }
+
+        .success .confetti-icon {
+            animation: confettiFloat 2.2s ease-in-out infinite !important;
+        }
     </style>
 </head>
 <body>
-    <!-- 背景音乐：将 bgm.mp3 与本页同级或放入 ./audio/bgm.mp3（MP3）；浏览器需在用户交互后播放 -->
-    <audio id="bgm" loop playsinline webkit-playsinline preload="metadata">
+        <!-- 简洁滑入相册开场 - 完整故事线 -->
+    <div id="slideShowIntro" class="slideshow-intro">
+        <div class="slideshow-container">
+            <!-- 所有幻灯片 - 完整故事线：回忆→分离→发现→觉醒→目标→连接→希望→同行→庆祝→决心→行动 -->
+            
+            <!-- 封面 -->
+            <div class="slide active" data-index="0">
+                <div class="slide-content cover-slide">
+                    <div class="cover-badge">TOP SECRET</div>
+                    <h1 class="cover-title">复合者<br>联盟</h1>
+                    <div class="cover-subtitle">RECONCILE UNION · 存档还在 · 默契没丢</div>
+                    <div class="cover-hint">全屏自动播放中 ▶</div>
+                </div>
+            </div>
+            
+            <!-- 章节01：回忆 -->
+            <div class="slide" data-index="1">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 01 · 回忆</div>
+                    <div class="slide-image">
+                        <img src="assets/story_memory.png" alt="回忆相册" loading="eager">
+                    </div>
+                    <div class="slide-caption">「还记得吗？那些并肩的日子从未真正远去」</div>
+                </div>
+            </div>
+            
+            <!-- 章节02：选择 -->
+            <div class="slide" data-index="2">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 02 · 岔路</div>
+                    <div class="slide-image">
+                        <img src="assets/story_choice.png" alt="人生选择" loading="eager">
+                    </div>
+                    <div class="slide-caption">人生总有岔路口，但真正的朋友终会重逢</div>
+                </div>
+            </div>
+            
+            <!-- 章节03：发现 -->
+            <div class="slide" data-index="3">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 03 · 发现</div>
+                    <div class="slide-image">
+                        <img src="assets/hero_alley.png" alt="霓虹小巷" loading="eager">
+                    </div>
+                    <div class="slide-caption">有些秘密，值得被重新发现；有些人，注定会再次相遇</div>
+                </div>
+            </div>
+            
+            <!-- 章节04：觉醒 -->
+            <div class="slide" data-index="4">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 04 · 觉醒</div>
+                    <div class="slide-image">
+                        <img src="assets/hero_energy.png" alt="能量觉醒" loading="eager">
+                    </div>
+                    <div class="slide-caption">「力量从未被束缚，它注定改变一切」</div>
+                </div>
+            </div>
+            
+            <!-- 章节05：目标 -->
+            <div class="slide" data-index="5">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 05 · 目标</div>
+                    <div class="slide-image">
+                        <img src="assets/hero_map.png" alt="冒险地图" loading="eager">
+                    </div>
+                    <div class="slide-caption">传说中的群岛已标出，航线由我们重新绘制</div>
+                </div>
+            </div>
+            
+            <!-- 章节06：连接 -->
+            <div class="slide" data-index="6">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 06 · 连接</div>
+                    <div class="slide-image">
+                        <img src="assets/story_bridge.png" alt="重逢之桥" loading="eager">
+                    </div>
+                    <div class="slide-caption">距离曾经把我们分开，但爱总能架起一座桥</div>
+                </div>
+            </div>
+            
+            <!-- 章节07：希望 -->
+            <div class="slide" data-index="7">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 07 · 希望</div>
+                    <div class="slide-image">
+                        <img src="assets/hero_dawn.png" alt="黎明曙光" loading="eager">
+                    </div>
+                    <div class="slide-caption">每个日出都在提醒：今天是一张空白页，由我们共同书写</div>
+                </div>
+            </div>
+            
+            <!-- 章节08：同行 -->
+            <div class="slide" data-index="8">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 08 · 同行</div>
+                    <div class="slide-image">
+                        <img src="assets/story_journey.png" alt="共同旅程" loading="eager">
+                    </div>
+                    <div class="slide-caption">重要的不是目的地，而是谁在你身边一起走完这段路</div>
+                </div>
+            </div>
+            
+            <!-- 章节09：庆祝 -->
+            <div class="slide" data-index="9">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 09 · 庆典</div>
+                    <div class="slide-image">
+                        <img src="assets/story_fireworks.png" alt="胜利烟花" loading="eager">
+                    </div>
+                    <div class="slide-caption">每一个挑战、每一次牺牲、每一个梦想——都值得庆祝</div>
+                </div>
+            </div>
+            
+            <!-- 章节10：开启 -->
+            <div class="slide" data-index="10">
+                <div class="slide-content image-slide">
+                    <div class="chapter-label">CHAPTER 10 · 新章</div>
+                    <div class="slide-image">
+                        <img src="assets/story_door.png" alt="开启之门" loading="eager">
+                    </div>
+                    <div class="slide-caption">这扇门后，是一个全新的开始——你愿意一起推开它吗？</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 分页指示器（仅视觉） -->
+        <div class="slideshow-dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+            <span class="dot" data-index="4"></span>
+            <span class="dot" data-index="5"></span>
+            <span class="dot" data-index="6"></span>
+            <span class="dot" data-index="7"></span>
+            <span class="dot" data-index="8"></span>
+            <span class="dot" data-index="9"></span>
+            <span class="dot" data-index="10"></span>
+        </div>
+    </div>
+
+    <!-- 背景音乐：强制自动播放 -->
+    <audio id="bgm" loop playsinline webkit-playsinline preload="auto" autoplay>
         <source src="bgm.mp3" type="audio/mpeg">
         <source src="audio/bgm.mp3" type="audio/mpeg">
     </audio>
 
-    <button type="button" id="musicToggle" class="music-float" aria-pressed="false" title="背景音乐：点击开启 / 暂停">
-        <span class="music-float__ico" aria-hidden="true">♪</span>
-        <span class="music-float__txt">背景音乐</span>
-    </button>
 
     <!-- 主容器 -->
     <div class="container">
-        <!-- 信封页面 -->
+        <!-- 信封页面 - 超级英雄海报风格 -->
         <div class="envelope-page" id="envelopePage">
-            <div class="envelope-card">
-                <div class="envelope-card-inner">
-                    <span class="envelope-corner" aria-hidden="true"></span>
-                    <span class="envelope-corner bl" aria-hidden="true"></span>
-                    <div class="envelope-anime-glitter" aria-hidden="true"></div>
-                    <p class="envelope-kicker">致你 · PRIVATE</p>
-                    <div class="envelope-visual-wrap">
-                        <div class="envelope-float">
-                            <div class="envelope" id="envelope" onclick="openLetter()" role="button" tabindex="0">
-                                <div class="envelope-sheet" aria-hidden="true"></div>
-                                <div class="envelope-back"></div>
-                                <div class="envelope-bottom"></div>
-                                <div class="envelope-left"></div>
-                                <div class="envelope-right"></div>
-                                <div class="envelope-flap"></div>
-                                <div class="envelope-chrome" aria-hidden="true"></div>
-                                <div class="seal" aria-hidden="true">✨</div>
+            <div class="hero-mission-card">
+                <div class="hero-mission-inner">
+                    <!-- 机密徽章 -->
+                    <div class="classified-badge">TOP SECRET</div>
+                    
+                    <!-- 任务标题 -->
+                    <div class="mission-header">
+                        <p class="mission-kicker">RECONCILE UNION · 复合者联盟</p>
+                        <h1 class="mission-title">复合者<br>联盟集结</h1>
+                    </div>
+                    
+                    <!-- 超级英雄信封图片 -->
+                    <div class="hero-envelope-wrap">
+                        <div class="hero-envelope-float">
+                            <div class="hero-envelope" id="envelope" onclick="openLetter()" role="button" tabindex="0">
+                                <img src="assets/hero_envelope.png" alt="机密任务信封" class="hero-envelope-img">
+                                <div class="envelope-glow"></div>
+                                <div class="envelope-pulse"></div>
                             </div>
                         </div>
-                        <div class="envelope-shadow" aria-hidden="true"></div>
+                        <div class="hero-envelope-shadow"></div>
                     </div>
-                    <div class="envelope-hint">
-                        <h1>致我最在意的人</h1>
-                        <p class="envelope-desc">我把许多话写进了这一页里：关于相遇、心动，还有未来想和你一起做的事。</p>
-                        <div class="tap-hint">
-                            <span aria-hidden="true">✨</span>
-                            <span>轻触信封 · 收下这份心意</span>
-                            <span aria-hidden="true">✨</span>
+                    
+                    <!-- 任务描述 -->
+                    <div class="mission-brief">
+                        <p class="mission-desc">这不是招募新人，而是复合者联盟的正式集结令——写给「曾经并肩、即将重逢的人」。</p>
+                        <div class="mission-cta">
+                            <span class="cta-icon">⚡</span>
+                            <span class="cta-text">拆封集结令 · 归队复合</span>
+                            <span class="cta-icon">⚡</span>
                         </div>
+                    </div>
+                    
+                    <!-- 装饰元素 -->
+                    <div class="comic-decorations">
+                        <span class="deco-line"></span>
+                        <span class="deco-dots"></span>
                     </div>
                 </div>
             </div>
@@ -1199,8 +1929,8 @@
         <div class="letter" id="letter">
             <div class="letter-inner">
                 <div class="letter-header">
-                    <h2>写给唯一的你</h2>
-                    <p class="letter-subtitle">字句很长，情意更长——请慢慢地读。</p>
+                    <h2>复合者联盟 · 集结简报</h2>
+                    <p class="letter-subtitle">代号：把旧存档读档 · 联盟规矩还在——读慢一点没关系，每一句话都是「当初我们没说完的那一段」。</p>
                 </div>
                 <div class="letter-content" id="letter-content">
                     <!-- 文字将通过打字机效果显示 -->
@@ -1208,11 +1938,11 @@
                 
                 <div class="question">
                     <div class="question-content">
-                        <h3 id="questionMain">愿不愿意，把时间分我一半？</h3>
-                        <p id="questionHint" class="question-hint">认真也好、玩笑也罢，我都想听你做决定。</p>
+                        <h3 id="questionMain">复合者——愿不愿意归队联盟，和我一起把那场没杀青的冒险续拍下去？</h3>
+                        <p id="questionHint" class="question-hint">你可以慢一点回答——但请你记得：最好的组队键，从来不是第一次按下，而是一起按过无数次的那颗。</p>
                         <div class="buttons">
-                            <button class="btn btn-yes" onclick="sayYes()">愿意 ❤️</button>
-                            <button class="btn btn-no" id="noBtn" onclick="sayNo(event)" type="button">不愿意</button>
+                            <button class="btn btn-yes" onclick="sayYes()">归队复合 ⚡</button>
+                            <button class="btn btn-no" id="noBtn" onclick="sayNo(event)" type="button">暂不归队</button>
                         </div>
                     </div>
                 </div>
@@ -1221,131 +1951,111 @@
 
         <!-- 成功页面 -->
         <div class="success" id="success">
-            <div class="success-card">
-                <div class="success-content">
-                    <div class="heart-ring"></div>
-                    <h2>谢谢你，向我走来</h2>
+            <div class="success-text">
+                <h2>RECONCILED · PARTNERS REUNITED</h2>
+                <p class="success-tagline">
+                    Mission Accomplished: Old save loaded,默契 restored.
+                </p>
+                <p style="margin-top: 16px;">
+                    从这一刻起——不管是再度冲进霓虹，还是安安静静熬一碗夜，
+                    前排站位默认还是你身旁那个：我。
+                </p>
+                <p style="margin-top: 12px;">
+                    下一场BOSS来之前，
+                    我们先把这次的「重新开始」写成金标成就：然后一路连载到现实世界。
+                </p>
+                <div class="success-subtitle">
                     <p>
-                        <span class="confetti-icon">💗</span>
-                        我们隔着漫长季节，终于在同一场黄昏里重逢。
-                        <span class="confetti-icon">💗</span>
+                        Screenshot this as your season cover: RECONCILED · BACK TOGETHER
                     </p>
-                    <p style="margin-top: 16px;">
-                        那些来不及说完的话、来不及拥抱的夜，
-                        从今天起，都可以慢慢补上。
-                    </p>
-                    <p style="margin-top: 12px;">
-                        以后很长，不必急着抵达，
-                        只要并肩，风也会变得柔软。
-                    </p>
-                    <div class="success-subtitle">
-                        <p>
-                            <span class="confetti-icon">🌸</span>
-                            把今天记下来吧——这是我们把“错过”改写成“重逢”的第一页。
-                            <span class="confetti-icon">🌸</span>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 微信提示 -->
-    <div class="wechat-tip" id="wechatTip">💝 觉得心动？点右上角把链接发给那个特别的人吧～</div>
+    <div class="wechat-tip" id="wechatTip">🎬 想喊复合者一起归队集结？点右上角把这份联盟召集令发出去吧～</div>
 
     <script>
-        // 表白文案（现代诗·恋人复合）
-        const letterText = `我们曾在同一场雨里并肩，
-后来，各自撑伞，走进不同的夜色。
+        // 复合者联盟 ·「重逢集结」简报
+        const letterText = `【复合者联盟 · 给曾经并肩的你】
 
-风把名字吹远，
-把沉默留在原地，
-像一封没写完的信，
-在抽屉里，亮了又暗。
+有些故事不需要新人登场，
+因为最珍贵的篇章，
+是两个人一起从错误中学习，重新点亮默契。
 
-我以为时间会教人忘记，
-却只教会我——
-在每一个黄昏，
-把想念说得更轻。
+我想先对你说声抱歉——
+为那些我曾说过却未做到的话，
+为那些让你独自面对的瞬间，
+为那些我本该站在你身旁却没有的时刻。
+那些错误不是剧情bug，
+是我需要认真修复的存档点。
 
-轻到像窗帘的一次起伏，
-像杯壁上慢慢退去的雾，
-像街角那盏灯，
-总在你会经过的方向亮着。
+你还记得吗？
+那些一起走过的路口、分享过的沉默，
+还有把尴尬笑成必杀技的一瞬间。
+你以为那是日常，
+我却把它存档成「只允许双人读档」的版本。
 
-如果重逢是一条很窄的路，
-那我愿意放慢脚步，
-把从前没来得及说的话，
-一行一行，重新写给你。
+中间的空白章节我承认它存在，
+那就像是剧情里不可避免的加载与修正。
+只是我走到今天才明白：
+再炫的光效，
+也抵不过你愿意再次站在我身旁。
 
-不急着抵达，不急着许诺，
-只想在你转身的时候，
-刚好站在你看得见的地方。
+所以这次不是招募新人，
+是复合者联盟的正式集结令——
+带着歉意与成长，正式邀请你归队——
 
-然后问你：
-要不要和我一起，
-把“后来”，
-改成“此刻”。`;
+愿不愿意和我重新校对坐标，
+把我们的能量条并联到同一条阵列里，
+让这场都市传奇从「未完待续」
+硬切回「并排冲锋」？
+我不保证前路没有挑战，
+但我保证：**这一次，我会一直站在你身旁。**
+
+如果你愿意，
+我们就当是旧存档读档，
+从同一行字幕开始，
+把伟大又温柔、诚恳又明亮的冒险，
+继续写完。`;
 
         const questionVariants = [
-            { main: '如果你愿意，我们可不可以从“后来”走回“此刻”？', hint: '不必急着回答，我会在这里，慢慢等你。' },
-            { main: '要不要和我一起，把那些走散的黄昏重新点亮？', hint: '这一次，我会把脚步放得很轻。' },
-            { main: '如果我伸出手，你愿不愿意再握住一次？', hint: '我们可以慢慢来，不赶路。' },
-            { main: '你的心意，对我真的很重要。', hint: '不管答案是什么，我都尊重。' }
+            { main: '愿不愿意和我一起，把那段未完的故事重新续写？', hint: '你可以慢慢想——我学会了等待，这一次会一直等你。' },
+            { main: '愿不愿意再给我一次机会，让我们更懂彼此、更懂珍惜？', hint: '快捷键还是那颗：你一回车，我就站在你身旁。' },
+            { main: '要不要把我们的故事从「待机」调成「并肩」模式？', hint: '前路可以慢慢走，但我想先确定你在我身边。' },
+            { main: '最后确认一次：愿不愿意继续做我认定的唯一并肩人？', hint: '你不用完美，我们只要还在同一条路上。' }
         ];
 
         const NO_BTN_ESCAPE_PHRASES = [
-            '手滑了对不对？再点一次好不好',
-            '我不信——你明明是笑着点的',
-            '再想想嘛，我就差你这一点点头了',
-            '别这么快拒绝我呀…我会超委屈的 🥺',
-            '难过三秒钟…然后继续等你改口',
-            '哼，我先躲一下，你可不许关页面',
-            '这个按钮今天叛逆期，不听「不愿意」',
-            '再点我？那我跑给你追（开玩笑的）',
-            '给你一次「撤回」机会，三、二……',
-            '拒绝可以，但理由要当面说给我听',
-            '你是不是在考验我追你的耐心 😤',
-            '最后一次机会——好吧我骗你的，机会管够',
-            '奶茶你选口味，我买单，你点「愿意」',
-            '我把「愿意」偷偷调大了字号，看见没？',
-            '你躲按钮，我躲害羞，咱俩扯平啦',
-            '万一…你只是害羞呢？',
-            '真的不再考虑一下下吗？就一下下',
-            '我的心已经坐好小板凳了，等你回头',
-            '要不这样：你先假装愿意，我再认真追',
-            '拒绝我也行，但今晚我会睡不着的',
-            '你点得越凶，我越觉得你可爱（别打我）',
-            '这不算数，网络延迟，我没听见',
-            '我去倒杯水，你趁我不注意改答案',
-            '友情提示：此按钮具有「越点越皮」属性',
-            '你是不是想让我多说几句好听的？',
-            '行，我记住了——下次换我更努力一点',
-            '不愿意三个字太冷了，换句软一点的？',
-            '我可以等，但你要允许我偶尔耍赖哦',
-            '先别做决定，回忆一下我刚刚写的信',
-            '你要是真的不愿意…我就继续追（理直气壮）',
-            '我会把这篇页面收藏，哪天你再点开看看',
-            '要么选愿意，要么选「明天再问问你」',
-            '我的Plan B是：再问一遍，再问一遍……',
-            '你每点一次，我就多喜欢你一点点',
-            '好好好我不逼你——但我按钮会走位',
-            '这不是结束，这是我的中场休息 ♪',
-            '听说犹豫的人心里其实已经有了答案',
-            '你要不要…把「不愿意」翻译成「等一下」',
-            '我准备了很长很长的以后，慢慢来也行',
-            '逃得了按钮，逃不过我想你（诶好土但真诚）',
-            '认真说：你不用完美，我们只要合适',
-            '那就先欠我一个「我愿意」，利息是拥抱',
-            '我去练吉他了——下次弹给你听换你点头',
-            '你要实在不想选…那就来抓我呀',
-            '此键已加入「傲娇模式」，请勿硬刚',
-            '我的喜欢很稳：你点几次我都在',
-            '最后一招：卖个惨…求求了嘛 🥹',
-            '开玩笑的啦——但我是真的很认真',
-            '要不先保存页面？让你慢慢想也不亏',
-            '你把「不愿意」留给我，我把温柔都留给你',
-            '点累了就歇会儿，「愿意」一直在那儿等你'
+            '我觉得你只是还没来得及把「愿意」说出口。',
+            '点得越频繁，越像是在撒娇——我懂，我等你。',
+            '「暂不」两个字太锋利了，换一句温柔点的吧。',
+            '此按键进入「害羞模式」彩蛋……越点越有爱。',
+            '友情提示：本按钮对旧默契伤害为零，只对真心造成暴击。',
+            '你是不是想多听几句「我还在」才把戏演足？',
+            '我可以等你慢慢想，但不能看你一个人面对所有。',
+            '先别关页面，回想一下信里那句「我一直都在」。',
+            '你要是真的要走……我就把这段回忆珍藏成最长的情书。',
+            '我把这句话收藏了——这可是「未完待续」的官方格式。',
+            '要么现在就并肩，要么明天我再问一次。',
+            'Plan B：把问题改成「要不要先喝奶茶再谈未来？」',
+            '你每犹豫一次，我就多确认一遍：你是我认定的那个人。',
+            '这不是拒绝，是我们的「思考时间」。',
+            '听说犹豫的人，心里其实已经说了「好」。',
+            '把「暂时不行」翻译成「让我准备一下」也可以。',
+            '未来编剧在此（还是我）——别让我等太久啊。',
+            '逃得过点击逃不过当年一起练出来的默契啦。',
+            '认真说：你不用完美，我只要和你并肩。',
+            '那就先欠我一个「愿意」，利息是一次认认真真的拥抱。',
+            '你要暂缓……我就当在等你整理心情，我继续等。',
+            '此键傲娇模式加载中——请勿与真心硬刚。',
+            '我的位置很固执：身旁永远留给你。',
+            '最后一招——卖个真诚：求你了嘛，复合者。',
+            '开玩笑啦——我是真的想把我们的故事写完。',
+            '先深呼吸，慢慢来，我会在原地一直等你。',
+            '你把犹豫留给自己，把决定的时间留给我们。',
+            '点累了就歇会儿，「重新开始」那盏灯永远为你亮着。'
         ];
 
         function pickNoBtnPhrase(previous) {
@@ -1355,28 +2065,23 @@
             return list[Math.floor(Math.random() * list.length)];
         }
 
-        // 刷新右下角音乐按钮与 aria 状态
+        // 背景音乐自动播放状态（无UI指示器）
         function refreshBgmFloatingButtonState() {
             const bgm = document.getElementById('bgm');
-            const btn = document.getElementById('musicToggle');
-            if (!bgm || !btn) return;
+            if (!bgm) return;
             const on = !bgm.paused;
-            btn.classList.toggle('is-playing', on);
-            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-            btn.title = on ? '点击暂停背景音乐' : '点击开启背景音乐';
+            console.log('背景音乐状态:', on ? '播放中' : '暂停');
         }
 
-        /** 在用户点击信封等与手势同源的时刻尝试播放（满足自动播放策略） */
+        // 尝试播放背景音乐（静默自动播放）
         function tryPlayBgmFromUserGesture() {
             const bgm = document.getElementById('bgm');
             if (!bgm) return;
             if (!bgm.paused) return;
-            const p = bgm.play();
-            if (p && typeof p.then === 'function') {
-                p.then(refreshBgmFloatingButtonState).catch(refreshBgmFloatingButtonState);
-            } else {
-                refreshBgmFloatingButtonState();
-            }
+            bgm.play().catch(() => {
+                // 如果失败，立即重试
+                setTimeout(() => bgm.play().catch(() => {}), 50);
+            });
         }
 
         let isTyping = false;
@@ -1384,6 +2089,7 @@
 
         // 打开信封
         function openLetter() {
+            // 背景音乐已自动播放，这里仅作保险
             tryPlayBgmFromUserGesture();
 
             const envelope = document.getElementById('envelope');
@@ -1458,7 +2164,7 @@
             document.getElementById('letter').style.display = 'none';
             document.getElementById('success').style.display = 'block';
 
-            // 清理不愿意按钮，防止它在成功页继续跳动
+            // 清理不愿意按钮
             const noBtn = document.getElementById('noBtn');
             if (noBtn) {
                 noBtn.style.display = 'none';
@@ -1467,7 +2173,7 @@
             noBtnClickCount = 0;
 
             playSuccessSound();
-            // 启动粉色动态爱心和烟花特效（增加氛围）
+            // 超级英雄胜利页：持续烟花与能量粒子（图标漂浮）
             setTimeout(() => {
                 if (typeof startFireworks === 'function') startFireworks();
                 if (typeof createFloatingHearts === 'function') {
@@ -1503,8 +2209,10 @@
                 qMain.textContent = questionVariants[qIdx].main;
                 qHint.textContent = questionVariants[qIdx].hint;
             }
-            btn.style.background = 'linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%)';
-            btn.style.color = '#0c4a6e';
+            btn.style.background = 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)';
+            btn.style.color = '#1e293b';
+            btn.style.border = '2px solid #0f172a';
+            btn.style.boxShadow = '4px 4px 0 #0f172a';
 
             const screenW = window.innerWidth || document.documentElement.clientWidth;
             const screenH = window.innerHeight || document.documentElement.clientHeight || 600;
@@ -1615,50 +2323,46 @@
             return /MicroMessenger/i.test(navigator.userAgent);
         }
 
-        // 背景音乐（需用户手势触发播放；首开信封会自动尝试）
+        // 背景音乐：静默自动播放，无UI按钮
         function initMusicControls() {
             const bgm = document.getElementById('bgm');
-            const btn = document.getElementById('musicToggle');
-            if (!bgm || !btn) return;
+            if (!bgm) return;
 
-            bgm.volume = 0.32;
+            bgm.volume = 0.4;
 
-            bgm.addEventListener('pause', refreshBgmFloatingButtonState);
-            bgm.addEventListener('play', refreshBgmFloatingButtonState);
-            bgm.addEventListener('error', function () {
-                btn.title = '未找到音频：请将 bgm.mp3 与本页同级，或置于 audio/bgm.mp3';
-                btn.classList.remove('is-playing');
-            });
-
-            btn.addEventListener('click', function (e) {
-                e.stopPropagation();
+            // 强制立即播放
+            const forceAutoPlay = () => {
                 if (bgm.paused) {
-                    const p = bgm.play();
-                    if (p && typeof p.then === 'function') {
-                        p.then(refreshBgmFloatingButtonState).catch(refreshBgmFloatingButtonState);
-                    }
-                } else {
-                    bgm.pause();
-                    refreshBgmFloatingButtonState();
+                    bgm.play().then(() => {
+                        console.log('背景音乐自动播放成功');
+                    }).catch(() => {
+                        // 立即重试
+                        setTimeout(forceAutoPlay, 50);
+                    });
                 }
-            });
+            };
 
-            refreshBgmFloatingButtonState();
+            // 立即尝试播放
+            forceAutoPlay();
+            // 多次尝试确保播放
+            setTimeout(forceAutoPlay, 100);
+            setTimeout(forceAutoPlay, 500);
+            setTimeout(forceAutoPlay, 1000);
         }
 
         // 动态爱心漂浮（粉色浪漫，填满留白）
         function createFloatingHearts(count = 22) {
-            const colors = ['#ff8fb0', '#f9a8d4', '#fda4af', '#fbcfe8', '#fce7f3'];
+            const colors = ['#fcd34d', '#fbbf24', '#f97316', '#ef4444', '#60a5fa', '#fde047'];
             for (let i = 0; i < count; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
-                    heart.textContent = ['💗', '💖', '💕', '❤️', '💝'][Math.floor(Math.random()*5)];
+                    heart.textContent = ['⚡', '⭐', '💥', '✨', '🛡️', '🔥'][Math.floor(Math.random() * 6)];
                     heart.style.position = 'fixed';
                     heart.style.left = Math.random() * 100 + 'vw';
                     heart.style.bottom = '-50px';
                     heart.style.fontSize = (18 + Math.random() * 26) + 'px';
                     heart.style.opacity = 0.75 + Math.random() * 0.25;
-                    heart.style.zIndex = '150';
+                    heart.style.zIndex = '212';
                     heart.style.pointerEvents = 'none';
                     heart.style.animation = `floatHeart ${4 + Math.random() * 5}s cubic-bezier(0.25, 0.1, 0.25, 1) forwards`;
                     heart.style.color = colors[Math.floor(Math.random() * colors.length)];
@@ -1715,7 +2419,7 @@
             }
 
             function explode(x, y) {
-                const colors = ['#ff8fb0', '#fda4af', '#f9a8d4', '#fce7f3', '#ff69b4', '#ffb6c1'];
+                const colors = ['#fbbf24', '#fcd34d', '#f97316', '#ef4444', '#60a5fa', '#fde68a', '#f43f5e'];
                 for (let i = 0; i < 38; i++) {
                     particles.push(new Particle(x, y, colors[Math.floor(Math.random()*colors.length)]));
                 }
@@ -1739,8 +2443,201 @@
             animate();
         }
 
+        // 简洁滑入相册开场 - 完整故事线，5秒自动翻页，开场即播放音乐
+        function playSlideShowIntro() {
+            const intro = document.getElementById('slideShowIntro');
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.slideshow-dots .dot');
+            const totalSlides = slides.length;
+            let currentIndex = 0;
+            let isSliding = false;
+            let autoPlayTimer = null;
+            const AUTO_PLAY_DELAY = 5000; // 5秒自动翻页
+
+            // 确保开场容器显示
+            intro.style.display = 'flex';
+            
+            // 初始化第一张
+            slides[0].classList.add('active');
+            updateDots(0);
+
+            // 【开场即播放音乐】静默自动播放，无UI
+            const bgm = document.getElementById('bgm');
+            if (bgm) {
+                bgm.volume = 0.4;
+                
+                // 强制立即播放函数
+                const forcePlay = () => {
+                    if (bgm.paused) {
+                        bgm.play().then(() => {
+                            // 播放成功，渐增至正常音量
+                            let vol = 0.4;
+                            const fadeIn = setInterval(() => {
+                                vol = Math.min(vol + 0.03, 0.7);
+                                bgm.volume = vol;
+                                if (vol >= 0.7) clearInterval(fadeIn);
+                            }, 150);
+                            console.log('背景音乐自动播放成功！');
+                        }).catch(() => {
+                            // 立即重试
+                            setTimeout(forcePlay, 50);
+                        });
+                    }
+                };
+                
+                // 立即尝试，并设置多次重试
+                forcePlay();
+                setTimeout(forcePlay, 100);
+                setTimeout(forcePlay, 300);
+                setTimeout(forcePlay, 600);
+            }
+
+            // 【完全自动播放】移除所有点击交互，纯自动播放
+            // 分页点仅作为指示器，不可点击
+            dots.forEach((dot) => {
+                dot.style.cursor = 'default';
+                dot.style.pointerEvents = 'none';
+            });
+
+            // 点击最后一张可立即结束
+            intro.addEventListener('click', function() {
+                if (!isSliding && currentIndex === totalSlides - 1) {
+                    // 最后一张时点击可结束
+                    clearTimeout(autoPlayTimer);
+                    endIntro();
+                }
+            });
+
+            function nextSlide() {
+                isSliding = true;
+                const currentSlide = slides[currentIndex];
+                const nextIndex = currentIndex + 1;
+                const nextSlideEl = slides[nextIndex];
+
+                // 当前页向上滑出
+                currentSlide.classList.remove('active');
+                currentSlide.classList.add('up');
+
+                // 下一张从下方滑入
+                nextSlideEl.classList.remove('up');
+                nextSlideEl.classList.add('active');
+
+                // 播放切换音效
+                playSlideSound();
+
+                // 更新指示器
+                updateDots(nextIndex);
+
+                setTimeout(() => {
+                    currentIndex = nextIndex;
+                    isSliding = false;
+                    
+                    // 到达最后一张后，停留更久自动结束
+                    if (currentIndex === totalSlides - 1) {
+                        clearTimeout(autoPlayTimer);
+                        setTimeout(() => {
+                            if (intro.style.display !== 'none') {
+                                endIntro();
+                            }
+                        }, 6000); // 最后一张停留6秒
+                    }
+                }, 600);
+            }
+
+            function goToSlide(targetIndex) {
+                if (targetIndex === currentIndex) return;
+                isSliding = true;
+
+                const currentSlide = slides[currentIndex];
+                const targetSlide = slides[targetIndex];
+
+                // 根据方向决定滑动方向
+                if (targetIndex > currentIndex) {
+                    // 向前：当前上滑，目标从下滑入
+                    currentSlide.classList.remove('active');
+                    currentSlide.classList.add('up');
+                    targetSlide.classList.remove('up');
+                    targetSlide.classList.add('active');
+                } else {
+                    // 向后：当前下滑，目标从上滑入
+                    currentSlide.classList.remove('active');
+                    targetSlide.classList.remove('up');
+                    targetSlide.classList.add('active');
+                }
+
+                playSlideSound();
+                updateDots(targetIndex);
+
+                setTimeout(() => {
+                    currentIndex = targetIndex;
+                    isSliding = false;
+                }, 600);
+            }
+
+            function updateDots(activeIndex) {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === activeIndex);
+                });
+            }
+
+            function endIntro() {
+                clearTimeout(autoPlayTimer);
+                intro.style.opacity = '0';
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    document.querySelector('.container').style.opacity = '1';
+                }, 800);
+            }
+
+            // 【5秒自动翻页】
+            function scheduleNextAutoPlay() {
+                if (currentIndex < totalSlides - 1) {
+                    autoPlayTimer = setTimeout(() => {
+                        if (!isSliding) {
+                            nextSlide();
+                            scheduleNextAutoPlay();
+                        }
+                    }, AUTO_PLAY_DELAY);
+                }
+            }
+
+            // 立即开始自动播放
+            scheduleNextAutoPlay();
+        }
+
+        // 滑动切换音效
+        function playSlideSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // 简洁的滑动音效
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(150, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.15);
+                
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+                
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.15);
+            } catch (e) {}
+        }
+
         // 页面加载完成后初始化
         window.onload = function() {
+            // 先隐藏主页面
+            document.querySelector('.container').style.opacity = '0';
+            document.querySelector('.container').style.transition = 'opacity 0.6s ease';
+            
+            // 播放简洁滑入相册开场
+            playSlideShowIntro();
+
             initMusicControls();
 
             const envEl = document.getElementById('envelope');
