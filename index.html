@@ -174,6 +174,135 @@
             50% { opacity: 1; }
         }
 
+        /* ===== 开始按钮覆盖层 ===== */
+        .start-overlay {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(185, 28, 28, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(37, 99, 235, 0.3) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0e14 0%, #1a1f35 50%, #0a0e14 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100000;
+            animation: bgPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.1); }
+        }
+
+        .start-content {
+            text-align: center;
+            animation: contentFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes contentFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 漫威风格大标题 */
+        .marvel-title {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(60px, 15vw, 120px);
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            text-shadow:
+                0 0 10px rgba(220, 38, 38, 0.8),
+                0 0 30px rgba(220, 38, 38, 0.5),
+                0 0 60px rgba(220, 38, 38, 0.3),
+                4px 4px 0 rgba(0, 0, 0, 0.8),
+                -2px -2px 0 rgba(251, 191, 36, 0.6);
+            background: linear-gradient(180deg, #fff 0%, #fbbf24 50%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.5));
+        }
+
+        .marvel-subtitle {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(20px, 4vw, 32px);
+            color: #dc2626;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+        }
+
+        /* 开始按钮 */
+        .start-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 50px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 0.15em;
+            color: #fff;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            border: 3px solid #fbbf24;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow:
+                0 0 30px rgba(220, 38, 38, 0.5),
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: buttonPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(220, 38, 38, 0.5), 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(220, 38, 38, 0.8), 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+        }
+
+        .start-button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow:
+                0 0 50px rgba(220, 38, 38, 0.8),
+                0 15px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .start-button:active {
+            transform: scale(0.98);
+        }
+
+        .start-icon {
+            font-size: 24px;
+        }
+
+        .start-hint {
+            margin-top: 30px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        /* 封面小标题 */
+        .marvel-title-small {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(36px, 8vw, 60px);
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            text-shadow:
+                0 0 10px rgba(220, 38, 38, 0.6),
+                4px 4px 0 rgba(0, 0, 0, 0.6);
+        }
+
         /* 图片页 - 全屏 */
         .image-slide {
             background: linear-gradient(180deg, #05070c 0%, #0a0e14 50%, #1e293b 100%);
@@ -1672,17 +1801,29 @@
 </head>
 <body>
         <!-- 简洁滑入相册开场 - 完整故事线 -->
-    <div id="slideShowIntro" class="slideshow-intro">
+    <!-- 开始按钮覆盖层 -->
+    <div id="startOverlay" class="start-overlay">
+        <div class="start-content">
+            <h1 class="marvel-title">复合者联盟</h1>
+            <p class="marvel-subtitle">RECONCILE UNION</p>
+            <button class="start-button" onclick="startStory()">
+                <span class="start-icon">▶</span>
+                <span>开始故事</span>
+            </button>
+            <p class="start-hint">点击开始，开启一段重逢之旅</p>
+        </div>
+    </div>
+
+    <div id="slideShowIntro" class="slideshow-intro" style="display: none;">
         <div class="slideshow-container">
-            <!-- 所有幻灯片 - 完整故事线：回忆→分离→发现→觉醒→目标→连接→希望→同行→庆祝→决心→行动 -->
+            <!-- 所有幻灯片 -->
             
             <!-- 封面 -->
             <div class="slide active" data-index="0">
                 <div class="slide-content cover-slide">
                     <div class="cover-badge">TOP SECRET</div>
-                    <h1 class="cover-title">复合者<br>联盟</h1>
+                    <h1 class="marvel-title-small">复合者<br>联盟</h1>
                     <div class="cover-subtitle">RECONCILE UNION · 存档还在 · 默契没丢</div>
-                    <div class="loading-hint" id="loadingHint">加载中...</div>
                 </div>
             </div>
             
@@ -2417,14 +2558,39 @@
             scheduleNextAutoPlay();
         }
 
-        // 页面加载完成后初始化
+        // 开始故事按钮点击事件
+        function startStory() {
+            const bgm = document.getElementById('bgm');
+            const startOverlay = document.getElementById('startOverlay');
+            const slideShowIntro = document.getElementById('slideShowIntro');
+
+            // 播放音乐
+            if (bgm) {
+                bgm.volume = 0.7;
+                bgm.play().catch(() => {});
+            }
+
+            // 隐藏开始按钮，显示动画
+            if (startOverlay) {
+                startOverlay.style.opacity = '0';
+                startOverlay.style.transition = 'opacity 0.8s ease';
+                setTimeout(() => {
+                    startOverlay.style.display = 'none';
+                }, 800);
+            }
+
+            // 显示并开始动画
+            if (slideShowIntro) {
+                slideShowIntro.style.display = 'flex';
+            }
+            playSlideShowIntro();
+        }
+
+        // 页面加载完成后初始化（但不自动播放）
         window.onload = function() {
             // 先隐藏主页面
             document.querySelector('.container').style.opacity = '0';
             document.querySelector('.container').style.transition = 'opacity 0.6s ease';
-
-            // 播放简洁滑入相册开场
-            playSlideShowIntro();
 
             const envEl = document.getElementById('envelope');
             if (envEl) {
