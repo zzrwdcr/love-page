@@ -1689,110 +1689,44 @@
             <!-- 章节01：回忆 -->
             <div class="slide" data-index="1">
                 <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 01 · 回忆</div>
+                    <div class="chapter-label">回忆</div>
                     <div class="slide-image">
                         <img src="assets/story_memory.png" alt="回忆相册" loading="lazy">
                     </div>
-                    <div class="slide-caption">「还记得吗？那些并肩的日子从未真正远去」</div>
+                    <div class="slide-caption">那些并肩的日子从未真正远去</div>
                 </div>
             </div>
-            
-            <!-- 章节02：选择 -->
+
+            <!-- 章节02：觉醒 -->
             <div class="slide" data-index="2">
                 <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 02 · 岔路</div>
-                    <div class="slide-image">
-                        <img src="assets/story_choice.png" alt="人生选择" loading="lazy">
-                    </div>
-                    <div class="slide-caption">人生总有岔路口，但真正的朋友终会重逢</div>
-                </div>
-            </div>
-            
-            <!-- 章节03：发现 -->
-            <div class="slide" data-index="3">
-                <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 03 · 发现</div>
-                    <div class="slide-image">
-                        <img src="assets/hero_alley.png" alt="霓虹小巷" loading="lazy">
-                    </div>
-                    <div class="slide-caption">有些秘密，值得被重新发现；有些人，注定会再次相遇</div>
-                </div>
-            </div>
-            
-            <!-- 章节04：觉醒 -->
-            <div class="slide" data-index="4">
-                <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 04 · 觉醒</div>
+                    <div class="chapter-label">觉醒</div>
                     <div class="slide-image">
                         <img src="assets/hero_energy.png" alt="能量觉醒" loading="lazy">
                     </div>
-                    <div class="slide-caption">「力量从未被束缚，它注定改变一切」</div>
+                    <div class="slide-caption">力量从未被束缚，它注定改变一切</div>
                 </div>
             </div>
-            
-            <!-- 章节05：目标 -->
-            <div class="slide" data-index="5">
+
+            <!-- 章节03：重逢 -->
+            <div class="slide" data-index="3">
                 <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 05 · 目标</div>
-                    <div class="slide-image">
-                        <img src="assets/hero_map.png" alt="冒险地图" loading="lazy">
-                    </div>
-                    <div class="slide-caption">传说中的群岛已标出，航线由我们重新绘制</div>
-                </div>
-            </div>
-            
-            <!-- 章节06：连接 -->
-            <div class="slide" data-index="6">
-                <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 06 · 连接</div>
+                    <div class="chapter-label">重逢</div>
                     <div class="slide-image">
                         <img src="assets/story_bridge.png" alt="重逢之桥" loading="lazy">
                     </div>
                     <div class="slide-caption">距离曾经把我们分开，但爱总能架起一座桥</div>
                 </div>
             </div>
-            
-            <!-- 章节07：希望 -->
-            <div class="slide" data-index="7">
+
+            <!-- 章节04：邀请 -->
+            <div class="slide" data-index="4">
                 <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 07 · 希望</div>
-                    <div class="slide-image">
-                        <img src="assets/hero_dawn.png" alt="黎明曙光" loading="lazy">
-                    </div>
-                    <div class="slide-caption">每个日出都在提醒：今天是一张空白页，由我们共同书写</div>
-                </div>
-            </div>
-            
-            <!-- 章节08：同行 -->
-            <div class="slide" data-index="8">
-                <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 08 · 同行</div>
-                    <div class="slide-image">
-                        <img src="assets/story_journey.png" alt="共同旅程" loading="lazy">
-                    </div>
-                    <div class="slide-caption">重要的不是目的地，而是谁在你身边一起走完这段路</div>
-                </div>
-            </div>
-            
-            <!-- 章节09：庆祝 -->
-            <div class="slide" data-index="9">
-                <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 09 · 庆典</div>
-                    <div class="slide-image">
-                        <img src="assets/story_fireworks.png" alt="胜利烟花" loading="lazy">
-                    </div>
-                    <div class="slide-caption">每一个挑战、每一次牺牲、每一个梦想——都值得庆祝</div>
-                </div>
-            </div>
-            
-            <!-- 章节10：开启 -->
-            <div class="slide" data-index="10">
-                <div class="slide-content image-slide">
-                    <div class="chapter-label">CHAPTER 10 · 新章</div>
+                    <div class="chapter-label">邀请</div>
                     <div class="slide-image">
                         <img src="assets/story_door.png" alt="开启之门" loading="lazy">
                     </div>
-                    <div class="slide-caption">这扇门后，是一个全新的开始——你愿意一起推开它吗？</div>
+                    <div class="slide-caption">这扇门后是一个全新的开始，你愿意一起推开它吗？</div>
                 </div>
             </div>
         </div>
@@ -2244,53 +2178,7 @@
             }
         }
 
-        // 检测微信环境
-        function isWechat() {
-            return /MicroMessenger/i.test(navigator.userAgent);
-        }
-
-        // 背景音乐：强制自动播放，多策略尝试
-        function initMusicControls() {
-            const bgm = document.getElementById('bgm');
-            if (!bgm) return;
-
-            bgm.volume = 0.4;
-
-            // 策略1：立即尝试播放
-            const playNow = () => {
-                bgm.play().catch(() => {});
-            };
-            
-            // 策略2：高频短间隔重试
-            let attempts = 0;
-            const aggressiveRetry = () => {
-                if (bgm.paused && attempts < 15) {
-                    attempts++;
-                    bgm.play().catch(() => {});
-                    setTimeout(aggressiveRetry, 200);
-                }
-            };
-
-            // 策略3：监听页面可见性变化时播放
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden && bgm.paused) {
-                    bgm.play().catch(() => {});
-                }
-            });
-
-            // 立即执行
-            playNow();
-            aggressiveRetry();
-            
-            // 页面完全加载后再试
-            window.addEventListener('load', () => {
-                setTimeout(playNow, 100);
-                setTimeout(playNow, 500);
-                setTimeout(playNow, 1000);
-            });
-        }
-
-        // 动态爱心漂浮（粉色浪漫，填满留白）
+        // 动态爱心漂浮
         function createFloatingHearts(count = 22) {
             const colors = ['#fcd34d', '#fbbf24', '#f97316', '#ef4444', '#60a5fa', '#fde047'];
             for (let i = 0; i < count; i++) {
@@ -2447,51 +2335,15 @@
                 nextSlideEl.classList.remove('up');
                 nextSlideEl.classList.add('active');
 
-                // 播放切换音效
-                playSlideSound();
-
                 setTimeout(() => {
                     currentIndex = nextIndex;
                     isSliding = false;
                     
-                    // 到达最后一张后，停留更久自动结束
+                    // 到达最后一张后自动结束
                     if (currentIndex === totalSlides - 1) {
                         clearTimeout(autoPlayTimer);
-                        setTimeout(() => {
-                            if (intro.style.display !== 'none') {
-                                endIntro();
-                            }
-                        }, 6000); // 最后一张停留6秒
+                        setTimeout(endIntro, 4000);
                     }
-                }, 600);
-            }
-
-            function goToSlide(targetIndex) {
-                if (targetIndex === currentIndex) return;
-                isSliding = true;
-
-                const currentSlide = slides[currentIndex];
-                const targetSlide = slides[targetIndex];
-
-                // 根据方向决定滑动方向
-                if (targetIndex > currentIndex) {
-                    // 向前：当前上滑，目标从下滑入
-                    currentSlide.classList.remove('active');
-                    currentSlide.classList.add('up');
-                    targetSlide.classList.remove('up');
-                    targetSlide.classList.add('active');
-                } else {
-                    // 向后：当前下滑，目标从上滑入
-                    currentSlide.classList.remove('active');
-                    targetSlide.classList.remove('up');
-                    targetSlide.classList.add('active');
-                }
-
-                playSlideSound();
-
-                setTimeout(() => {
-                    currentIndex = targetIndex;
-                    isSliding = false;
                 }, 600);
             }
 
@@ -2518,44 +2370,13 @@
 
             // 立即开始自动播放
             scheduleNextAutoPlay();
-            
-            // 立即尝试播放背景音乐（配合用户点击）
+
+            // 尝试播放背景音乐
             const bgm = document.getElementById('bgm');
             if (bgm) {
-                bgm.volume = 0.4;
-                bgm.play().catch(() => {
-                    // 如果自动播放失败，等待用户点击
-                    const playOnClick = () => {
-                        bgm.play().catch(() => {});
-                        intro.removeEventListener('click', playOnClick);
-                    };
-                    intro.addEventListener('click', playOnClick);
-                });
+                bgm.volume = 0.5;
+                bgm.play().catch(() => {});
             }
-        }
-
-        // 滑动切换音效
-        function playSlideSound() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                // 简洁的滑动音效
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(150, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.15);
-                
-                gain.gain.setValueAtTime(0.08, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
-                
-                osc.start(ctx.currentTime);
-                osc.stop(ctx.currentTime + 0.15);
-            } catch (e) {}
         }
 
         // 页面加载完成后初始化
@@ -2563,11 +2384,9 @@
             // 先隐藏主页面
             document.querySelector('.container').style.opacity = '0';
             document.querySelector('.container').style.transition = 'opacity 0.6s ease';
-            
+
             // 播放简洁滑入相册开场
             playSlideShowIntro();
-
-            initMusicControls();
 
             const envEl = document.getElementById('envelope');
             if (envEl) {
@@ -2577,15 +2396,6 @@
                         openLetter();
                     }
                 });
-            }
-            
-            if (isWechat()) {
-                setTimeout(() => {
-                    document.getElementById('wechatTip').style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById('wechatTip').style.display = 'none';
-                    }, 4000);
-                }, 3000);
             }
         };
 
