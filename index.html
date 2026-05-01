@@ -1738,17 +1738,49 @@
         <source src="audio/bgm.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 立即播放音乐脚本 -->
+    <!-- 立即播放音乐脚本 - 多策略尝试 -->
     <script>
         (function() {
             const bgm = document.getElementById('bgm');
-            if (bgm) {
-                bgm.volume = 0.6;
+            if (!bgm) return;
+            
+            bgm.volume = 0.6;
+            
+            // 策略1：页面解析时立即播放
+            function tryPlay() {
                 bgm.play().catch(function() {});
-                // 立即重试
-                setTimeout(function() { bgm.play().catch(function() {}); }, 50);
-                setTimeout(function() { bgm.play().catch(function() {}); }, 100);
             }
+            
+            // 多次尝试
+            tryPlay();
+            setTimeout(tryPlay, 10);
+            setTimeout(tryPlay, 50);
+            setTimeout(tryPlay, 100);
+            setTimeout(tryPlay, 200);
+            setTimeout(tryPlay, 500);
+            
+            // 策略2：页面可见时播放
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden && bgm.paused) {
+                    bgm.play().catch(function() {});
+                }
+            });
+            
+            // 策略3：任何交互都尝试播放
+            function playOnInteraction() {
+                if (bgm.paused) {
+                    bgm.play().catch(function() {});
+                }
+            }
+            
+            document.addEventListener('click', playOnInteraction);
+            document.addEventListener('touchstart', playOnInteraction);
+            document.addEventListener('scroll', playOnInteraction);
+            document.addEventListener('keydown', playOnInteraction);
+            
+            // 策略4：窗口获得焦点时
+            window.addEventListener('focus', playOnInteraction);
+            
         })();
     </script>
 
