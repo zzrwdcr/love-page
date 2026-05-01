@@ -160,23 +160,6 @@
             max-width: 80%;
         }
 
-        .cover-hint {
-            position: absolute;
-            bottom: 60px;
-            font-size: 16px;
-            color: #fbbf24;
-            animation: pulse 2s infinite;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 12px 24px;
-            border-radius: 999px;
-            border: 2px solid rgba(245, 198, 60, 0.5);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
         /* 图片页 - 全屏 */
         .image-slide {
             background: linear-gradient(180deg, #05070c 0%, #0a0e14 50%, #1e293b 100%);
@@ -344,45 +327,6 @@
             padding: 14px 28px;
             border: 3px solid #0f172a;
             box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        /* 分页指示器 - 仅作为视觉指示器（不可点击） */
-        .slideshow-dots {
-            position: absolute;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 14px;
-            z-index: 10000;
-            max-width: 90%;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 12px 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 999px;
-            backdrop-filter: blur(8px);
-            pointer-events: none; /* 整个区域不可点击 */
-        }
-
-        .slideshow-dots .dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: default;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            pointer-events: none; /* 不可点击 */
-        }
-
-        .slideshow-dots .dot.active {
-            background: #fbbf24;
-            border-color: #0f172a;
-            box-shadow: 0 0 16px rgba(251, 191, 36, 1);
-            transform: scale(1.4);
-            box-shadow: 0 0 12px rgba(251, 191, 36, 0.7);
-            transform: scale(1.2);
         }
 
         /* ===== 任务简报信封 ===== */
@@ -1536,12 +1480,6 @@
                 font-size: clamp(36px, 10vw, 52px);
             }
 
-            .cover-hint {
-                bottom: 40px;
-                font-size: 14px;
-                padding: 10px 20px;
-            }
-
             .chapter-label {
                 top: 20px;
                 left: 20px;
@@ -1592,17 +1530,6 @@
                 padding: 10px 20px;
             }
 
-            .slideshow-dots {
-                bottom: 40px;
-                gap: 10px;
-                padding: 8px 14px;
-            }
-
-            .slideshow-dots .dot {
-                width: 12px;
-                height: 12px;
-            }
-            
             .letter-inner {
                 padding: 25px 20px;
             }
@@ -1741,7 +1668,6 @@
                     <div class="cover-badge">TOP SECRET</div>
                     <h1 class="cover-title">复合者<br>联盟</h1>
                     <div class="cover-subtitle">RECONCILE UNION · 存档还在 · 默契没丢</div>
-                    <div class="cover-hint">全屏自动播放中 ▶</div>
                 </div>
             </div>
             
@@ -1854,21 +1780,6 @@
                     <div class="slide-caption">这扇门后，是一个全新的开始——你愿意一起推开它吗？</div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 分页指示器（仅视觉） -->
-        <div class="slideshow-dots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-            <span class="dot" data-index="3"></span>
-            <span class="dot" data-index="4"></span>
-            <span class="dot" data-index="5"></span>
-            <span class="dot" data-index="6"></span>
-            <span class="dot" data-index="7"></span>
-            <span class="dot" data-index="8"></span>
-            <span class="dot" data-index="9"></span>
-            <span class="dot" data-index="10"></span>
         </div>
     </div>
 
@@ -2323,50 +2234,46 @@
             return /MicroMessenger/i.test(navigator.userAgent);
         }
 
-        // 背景音乐：尝试自动播放，失败则等待用户交互
+        // 背景音乐：强制自动播放，多策略尝试
         function initMusicControls() {
             const bgm = document.getElementById('bgm');
             if (!bgm) return;
 
             bgm.volume = 0.4;
 
-            // 尝试自动播放，最多3次，不阻塞交互
-            let attempts = 0;
-            const maxAttempts = 3;
+            // 策略1：立即尝试播放
+            const playNow = () => {
+                bgm.play().catch(() => {});
+            };
             
-            const tryPlay = () => {
-                if (bgm.paused && attempts < maxAttempts) {
+            // 策略2：高频短间隔重试
+            let attempts = 0;
+            const aggressiveRetry = () => {
+                if (bgm.paused && attempts < 15) {
                     attempts++;
-                    bgm.play().then(() => {
-                        console.log('背景音乐自动播放成功');
-                    }).catch(() => {
-                        // 稍后重试，不阻塞
-                        if (attempts < maxAttempts) {
-                            setTimeout(tryPlay, 500);
-                        }
-                    });
+                    bgm.play().catch(() => {});
+                    setTimeout(aggressiveRetry, 200);
                 }
             };
 
-            // 延迟启动，避免阻塞页面加载
-            setTimeout(tryPlay, 300);
+            // 策略3：监听页面可见性变化时播放
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && bgm.paused) {
+                    bgm.play().catch(() => {});
+                }
+            });
+
+            // 立即执行
+            playNow();
+            aggressiveRetry();
+            
+            // 页面完全加载后再试
+            window.addEventListener('load', () => {
+                setTimeout(playNow, 100);
+                setTimeout(playNow, 500);
+                setTimeout(playNow, 1000);
+            });
         }
-        
-        // 用户首次交互时播放音乐
-        function playOnFirstInteraction() {
-            const bgm = document.getElementById('bgm');
-            if (bgm && bgm.paused) {
-                bgm.volume = 0.7;
-                bgm.play().catch(() => {});
-            }
-            // 移除监听器
-            document.removeEventListener('click', playOnFirstInteraction);
-            document.removeEventListener('touchstart', playOnFirstInteraction);
-        }
-        
-        // 监听用户首次交互
-        document.addEventListener('click', playOnFirstInteraction);
-        document.addEventListener('touchstart', playOnFirstInteraction);
 
         // 动态爱心漂浮（粉色浪漫，填满留白）
         function createFloatingHearts(count = 22) {
@@ -2465,7 +2372,6 @@
         function playSlideShowIntro() {
             const intro = document.getElementById('slideShowIntro');
             const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.slideshow-dots .dot');
             const totalSlides = slides.length;
             let currentIndex = 0;
             let isSliding = false;
@@ -2477,36 +2383,6 @@
             
             // 初始化第一张
             slides[0].classList.add('active');
-            updateDots(0);
-
-            // 【开场即播放音乐】静默自动播放，不阻塞交互
-            const bgm = document.getElementById('bgm');
-            if (bgm) {
-                bgm.volume = 0.4;
-                
-                // 尝试播放，不阻塞页面交互
-                let attempts = 0;
-                const tryPlayBgm = () => {
-                    if (bgm.paused && attempts < 2) {
-                        attempts++;
-                        bgm.play().then(() => {
-                            console.log('背景音乐自动播放成功！');
-                        }).catch(() => {
-                            // 失败不重试，等待用户交互
-                        });
-                    }
-                };
-                
-                // 延迟尝试播放
-                setTimeout(tryPlayBgm, 500);
-            }
-
-            // 【完全自动播放】移除所有点击交互，纯自动播放
-            // 分页点仅作为指示器，不可点击
-            dots.forEach((dot) => {
-                dot.style.cursor = 'default';
-                dot.style.pointerEvents = 'none';
-            });
 
             // 点击最后一张可立即结束
             intro.addEventListener('click', function() {
@@ -2533,9 +2409,6 @@
 
                 // 播放切换音效
                 playSlideSound();
-
-                // 更新指示器
-                updateDots(nextIndex);
 
                 setTimeout(() => {
                     currentIndex = nextIndex;
@@ -2575,18 +2448,11 @@
                 }
 
                 playSlideSound();
-                updateDots(targetIndex);
 
                 setTimeout(() => {
                     currentIndex = targetIndex;
                     isSliding = false;
                 }, 600);
-            }
-
-            function updateDots(activeIndex) {
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === activeIndex);
-                });
             }
 
             function endIntro() {
