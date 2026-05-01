@@ -2323,32 +2323,50 @@
             return /MicroMessenger/i.test(navigator.userAgent);
         }
 
-        // 背景音乐：静默自动播放，无UI按钮
+        // 背景音乐：尝试自动播放，失败则等待用户交互
         function initMusicControls() {
             const bgm = document.getElementById('bgm');
             if (!bgm) return;
 
             bgm.volume = 0.4;
 
-            // 强制立即播放
-            const forceAutoPlay = () => {
-                if (bgm.paused) {
+            // 尝试自动播放，最多3次，不阻塞交互
+            let attempts = 0;
+            const maxAttempts = 3;
+            
+            const tryPlay = () => {
+                if (bgm.paused && attempts < maxAttempts) {
+                    attempts++;
                     bgm.play().then(() => {
                         console.log('背景音乐自动播放成功');
                     }).catch(() => {
-                        // 立即重试
-                        setTimeout(forceAutoPlay, 50);
+                        // 稍后重试，不阻塞
+                        if (attempts < maxAttempts) {
+                            setTimeout(tryPlay, 500);
+                        }
                     });
                 }
             };
 
-            // 立即尝试播放
-            forceAutoPlay();
-            // 多次尝试确保播放
-            setTimeout(forceAutoPlay, 100);
-            setTimeout(forceAutoPlay, 500);
-            setTimeout(forceAutoPlay, 1000);
+            // 延迟启动，避免阻塞页面加载
+            setTimeout(tryPlay, 300);
         }
+        
+        // 用户首次交互时播放音乐
+        function playOnFirstInteraction() {
+            const bgm = document.getElementById('bgm');
+            if (bgm && bgm.paused) {
+                bgm.volume = 0.7;
+                bgm.play().catch(() => {});
+            }
+            // 移除监听器
+            document.removeEventListener('click', playOnFirstInteraction);
+            document.removeEventListener('touchstart', playOnFirstInteraction);
+        }
+        
+        // 监听用户首次交互
+        document.addEventListener('click', playOnFirstInteraction);
+        document.addEventListener('touchstart', playOnFirstInteraction);
 
         // 动态爱心漂浮（粉色浪漫，填满留白）
         function createFloatingHearts(count = 22) {
@@ -2461,35 +2479,26 @@
             slides[0].classList.add('active');
             updateDots(0);
 
-            // 【开场即播放音乐】静默自动播放，无UI
+            // 【开场即播放音乐】静默自动播放，不阻塞交互
             const bgm = document.getElementById('bgm');
             if (bgm) {
                 bgm.volume = 0.4;
                 
-                // 强制立即播放函数
-                const forcePlay = () => {
-                    if (bgm.paused) {
+                // 尝试播放，不阻塞页面交互
+                let attempts = 0;
+                const tryPlayBgm = () => {
+                    if (bgm.paused && attempts < 2) {
+                        attempts++;
                         bgm.play().then(() => {
-                            // 播放成功，渐增至正常音量
-                            let vol = 0.4;
-                            const fadeIn = setInterval(() => {
-                                vol = Math.min(vol + 0.03, 0.7);
-                                bgm.volume = vol;
-                                if (vol >= 0.7) clearInterval(fadeIn);
-                            }, 150);
                             console.log('背景音乐自动播放成功！');
                         }).catch(() => {
-                            // 立即重试
-                            setTimeout(forcePlay, 50);
+                            // 失败不重试，等待用户交互
                         });
                     }
                 };
                 
-                // 立即尝试，并设置多次重试
-                forcePlay();
-                setTimeout(forcePlay, 100);
-                setTimeout(forcePlay, 300);
-                setTimeout(forcePlay, 600);
+                // 延迟尝试播放
+                setTimeout(tryPlayBgm, 500);
             }
 
             // 【完全自动播放】移除所有点击交互，纯自动播放
